@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DartaLink | New Darta Entry</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-mark">DL</div>
+
+            <div>
+                <h1>DartaLink</h1>
+                <span>Document Registration & Routing</span>
+            </div>
+        </div>
+
+        <div class="topbar-user">
+            <span>Darta / Chalani Section</span>
+            <div class="user-avatar">DC</div>
+        </div>
+    </header>
+
+
+    <main class="page-container">
+
+        <div class="page-heading">
+            <div>
+                <p class="eyebrow">DARTA / CHALANI</p>
+                <h2>Register Incoming Document</h2>
+                <p class="page-description">
+                    Capture the physical document and enter its basic registration details.
+                </p>
+            </div>
+
+            <a href="/" class="secondary-button">Back to Dashboard</a>
+        </div>
+
+
+        <div class="workflow-steps">
+
+            <div class="workflow-step active">
+                <span>1</span>
+                <div>
+                    <strong>Document Capture</strong>
+                    <small>Photo of physical document</small>
+                </div>
+            </div>
+
+            <div class="step-line"></div>
+
+            <div class="workflow-step">
+                <span>2</span>
+                <div>
+                    <strong>Document Details</strong>
+                    <small>Enter registration information</small>
+                </div>
+            </div>
+
+            <div class="step-line"></div>
+
+            <div class="workflow-step">
+                <span>3</span>
+                <div>
+                    <strong>Review & Register</strong>
+                    <small>Verify before submission</small>
+                </div>
+            </div>
+
+        </div>
+
+
+        <section class="entry-grid">
+
+            <!-- Camera / Photo Capture -->
+
+            <div class="card capture-card">
+
+                <div class="card-header">
+                    <div>
+                        <p class="section-label">STEP 1</p>
+                        <h3>Capture Document</h3>
+                    </div>
+
+                    <span class="status-badge">Required</span>
+                </div>
+
+
+                <div class="camera-area" id="cameraArea">
+
+                    <div class="camera-placeholder" id="cameraPlaceholder">
+
+                        <div class="camera-icon">▣</div>
+
+                        <h4>Capture Physical Document</h4>
+
+                        <p>
+                            Use the camera to capture the incoming letter
+                            or upload an existing document photo.
+                        </p>
+
+                        <div class="capture-actions">
+
+                            <button
+                                type="button"
+                                class="primary-button"
+                                id="openCameraButton"
+                            >
+                                Open Camera
+                            </button>
+
+                            <label class="secondary-button upload-label">
+                                Upload Photo
+                                <input
+                                    type="file"
+                                    id="documentPhoto"
+                                    accept="image/*"
+                                    hidden
+                                >
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <video
+                        id="cameraPreview"
+                        class="camera-preview hidden"
+                        autoplay
+                        playsinline
+                    ></video>
+
+                    <canvas
+                        id="captureCanvas"
+                        class="hidden"
+                    ></canvas>
+
+                    <img
+                        id="photoPreview"
+                        class="photo-preview hidden"
+                        alt="Captured document preview"
+                    >
+
+                </div>
+
+
+                <div class="capture-footer">
+
+                    <span id="captureStatus">
+                        No document image selected
+                    </span>
+
+                    <button
+                        type="button"
+                        id="captureButton"
+                        class="primary-button hidden"
+                    >
+                        Capture Photo
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Manual Details -->
+
+            <div class="card details-card">
+
+                <div class="card-header">
+                    <div>
+                        <p class="section-label">STEP 2</p>
+                        <h3>Document Details</h3>
+                    </div>
+
+                    <span class="draft-badge">Draft</span>
+                </div>
+
+
+                <form id="dartaForm">
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+                            <label for="dartaNumber">
+                                Darta Number
+                            </label>
+
+                            <input
+                                type="text"
+                                id="dartaNumber"
+                                placeholder="e.g. DRT-2026-00125"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="receivedDate">
+                                Received Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="receivedDate"
+                            >
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="sender">
+                            Sender / Organization
+                        </label>
+
+                        <input
+                            type="text"
+                            id="sender"
+                            placeholder="Enter sender or organization name"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="subject">
+                            Subject
+                        </label>
+
+                        <textarea
+                            id="subject"
+                            rows="3"
+                            placeholder="Enter document subject"
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="referenceNumber">
+                                Reference Number
+                            </label>
+
+                            <input
+                                type="text"
+                                id="referenceNumber"
+                                placeholder="Sender's reference number"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="urgency">
+                                Priority
+                            </label>
+
+                            <select id="urgency">
+
+                                <option value="">
+                                    Select priority
+                                </option>
+
+                                <option value="normal">
+                                    Normal
+                                </option>
+
+                                <option value="urgent">
+                                    Urgent
+                                </option>
+
+                                <option value="immediate">
+                                    Immediate
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="receivingBranch">
+                            Receiving Branch
+                        </label>
+
+                        <select id="receivingBranch">
+
+                            <option value="">
+                                Select receiving branch
+                            </option>
+
+                            <option value="pramukh">
+                                Karyalaya Pramukh
+                            </option>
+
+                            <option value="technical">
+                                Prabidhik Sakha
+                            </option>
+
+                            <option value="accounts">
+                                Lekha Sakha
+                            </option>
+
+                            <option value="revenue">
+                                Rajaswa Sakha
+                            </option>
+
+                            <option value="budget">
+                                Budget Sakha
+                            </option>
+
+                            <option value="it">
+                                IT Sakha
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-actions">
+
+                        <button
+                            type="button"
+                            class="secondary-button"
+                            id="saveDraftButton"
+                        >
+                            Save Draft
+                        </button>
+
+                        <button
+                            type="button"
+                            class="primary-button"
+                            id="reviewButton"
+                        >
+                            Review Entry
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+        <!-- Review Summary -->
+
+        <section class="card review-card hidden" id="reviewCard">
+
+            <div class="card-header">
+
+                <div>
+                    <p class="section-label">STEP 3</p>
+                    <h3>Review Registration</h3>
+                </div>
+
+                <span class="review-status">Ready for Review</span>
+
+            </div>
+
+
+            <div class="review-grid">
+
+                <div>
+                    <span>Sender</span>
+                    <strong id="reviewSender">—</strong>
+                </div>
+
+                <div>
+                    <span>Subject</span>
+                    <strong id="reviewSubject">—</strong>
+                </div>
+
+                <div>
+                    <span>Reference Number</span>
+                    <strong id="reviewReference">—</strong>
+                </div>
+
+                <div>
+                    <span>Priority</span>
+                    <strong id="reviewPriority">—</strong>
+                </div>
+
+                <div>
+                    <span>Receiving Branch</span>
+                    <strong id="reviewBranch">—</strong>
+                </div>
+
+                <div>
+                    <span>Document</span>
+                    <strong id="reviewDocument">Not attached</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="{% static 'js/app.js' %}"></script>
+
+</body>
+</html>

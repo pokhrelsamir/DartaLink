@@ -1,0 +1,545 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --navy: #17324d;
+    --blue: #2563eb;
+    --blue-dark: #1d4ed8;
+    --background: #f4f6f8;
+    --surface: #ffffff;
+    --border: #d9e0e7;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --success: #15803d;
+    --warning: #b45309;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+
+/* -------------------------
+   Top Navigation
+------------------------- */
+
+.topbar {
+    height: 72px;
+    background: var(--navy);
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 36px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand-mark {
+    width: 40px;
+    height: 40px;
+
+    display: grid;
+    place-items: center;
+
+    background: var(--blue);
+    border-radius: 8px;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.brand h1 {
+    font-size: 19px;
+    line-height: 1.2;
+}
+
+.brand span {
+    font-size: 11px;
+    color: #cbd5e1;
+}
+
+.topbar-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    font-size: 13px;
+}
+
+.user-avatar {
+    width: 36px;
+    height: 36px;
+
+    display: grid;
+    place-items: center;
+
+    background: #294766;
+    border-radius: 50%;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+/* -------------------------
+   Main Layout
+------------------------- */
+
+.page-container {
+    width: min(1200px, calc(100% - 48px));
+    margin: 32px auto 60px;
+}
+
+.page-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    margin-bottom: 26px;
+}
+
+.eyebrow,
+.section-label {
+    color: var(--blue);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.page-heading h2 {
+    margin: 6px 0;
+    font-size: 28px;
+}
+
+.page-description {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+
+/* -------------------------
+   Buttons
+------------------------- */
+
+.primary-button,
+.secondary-button {
+    border: none;
+    border-radius: 6px;
+
+    padding: 10px 16px;
+
+    cursor: pointer;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+.primary-button {
+    background: var(--blue);
+    color: white;
+}
+
+.primary-button:hover {
+    background: var(--blue-dark);
+}
+
+.secondary-button {
+    background: white;
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+.secondary-button:hover {
+    background: #f8fafc;
+}
+
+
+/* -------------------------
+   Workflow Steps
+------------------------- */
+
+.workflow-steps {
+    display: flex;
+    align-items: center;
+
+    background: var(--surface);
+    border: 1px solid var(--border);
+
+    border-radius: 8px;
+
+    padding: 18px 22px;
+    margin-bottom: 20px;
+}
+
+.workflow-step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    min-width: 190px;
+}
+
+.workflow-step > span {
+    width: 30px;
+    height: 30px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    background: #e5e7eb;
+    color: #6b7280;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.workflow-step.active > span {
+    background: var(--blue);
+    color: white;
+}
+
+.workflow-step strong {
+    display: block;
+    font-size: 12px;
+}
+
+.workflow-step small {
+    display: block;
+    margin-top: 3px;
+
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.step-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+
+
+/* -------------------------
+   Cards
+------------------------- */
+
+.entry-grid {
+    display: grid;
+    grid-template-columns: 0.95fr 1.25fr;
+    gap: 20px;
+}
+
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+
+    padding: 22px;
+}
+
+.card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+}
+
+.card-header h3 {
+    margin-top: 5px;
+    font-size: 18px;
+}
+
+.status-badge,
+.draft-badge,
+.review-status {
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.status-badge {
+    background: #eff6ff;
+    color: var(--blue);
+}
+
+.draft-badge {
+    background: #fff7ed;
+    color: var(--warning);
+}
+
+.review-status {
+    background: #ecfdf5;
+    color: var(--success);
+}
+
+
+/* -------------------------
+   Camera Area
+------------------------- */
+
+.camera-area {
+    min-height: 360px;
+
+    border: 2px dashed #cbd5e1;
+    border-radius: 8px;
+
+    background: #f8fafc;
+
+    display: grid;
+    place-items: center;
+
+    overflow: hidden;
+}
+
+.camera-placeholder {
+    text-align: center;
+    padding: 30px;
+}
+
+.camera-icon {
+    width: 64px;
+    height: 64px;
+
+    display: grid;
+    place-items: center;
+
+    margin: 0 auto 15px;
+
+    border-radius: 12px;
+
+    background: #eaf1fb;
+    color: var(--blue);
+
+    font-size: 28px;
+}
+
+.camera-placeholder h4 {
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+.camera-placeholder p {
+    max-width: 300px;
+    margin: 0 auto 20px;
+
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.capture-actions {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.upload-label {
+    cursor: pointer;
+}
+
+.camera-preview,
+.photo-preview {
+    width: 100%;
+    height: 360px;
+
+    object-fit: contain;
+    background: #111827;
+}
+
+.capture-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 14px;
+
+    color: var(--muted);
+    font-size: 11px;
+}
+
+
+/* -------------------------
+   Form
+------------------------- */
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+
+    padding: 10px 11px;
+
+    border: 1px solid var(--border);
+    border-radius: 5px;
+
+    background: white;
+    color: var(--text);
+
+    outline: none;
+
+    font-size: 13px;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: var(--blue);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+
+    padding-top: 8px;
+}
+
+
+/* -------------------------
+   Review
+------------------------- */
+
+.review-card {
+    margin-top: 20px;
+}
+
+.review-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.review-grid div {
+    padding: 14px;
+
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+}
+
+.review-grid span {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.review-grid strong {
+    font-size: 12px;
+}
+
+
+/* -------------------------
+   Utility
+------------------------- */
+
+.hidden {
+    display: none !important;
+}
+
+
+/* -------------------------
+   Responsive
+------------------------- */
+
+@media (max-width: 900px) {
+
+    .entry-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .workflow-steps {
+        overflow-x: auto;
+    }
+
+    .workflow-step {
+        min-width: 170px;
+    }
+
+    .review-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .topbar {
+        padding: 0 18px;
+    }
+
+    .topbar-user > span {
+        display: none;
+    }
+
+    .page-container {
+        width: min(100% - 24px, 1200px);
+        margin-top: 20px;
+    }
+
+    .page-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .review-grid {
+        grid-template-columns: 1fr;
+    }
+}
