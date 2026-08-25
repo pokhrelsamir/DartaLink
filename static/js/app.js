@@ -219,3 +219,171 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 });
+
+/* =========================================
+   August 25 - Approval Dashboard
+========================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const approvalSearch =
+        document.getElementById("approvalSearch");
+
+    const approvalFilter =
+        document.getElementById("approvalFilter");
+
+    const documentItems =
+        document.querySelectorAll(".document-item");
+
+    const approveButton =
+        document.getElementById("approveButton");
+
+    const rejectButton =
+        document.getElementById("rejectButton");
+
+
+    /* -------------------------
+       Document Selection
+    ------------------------- */
+
+    documentItems.forEach(item => {
+
+        item.addEventListener("click", () => {
+
+            documentItems.forEach(documentItem => {
+                documentItem.classList.remove("selected");
+            });
+
+            item.classList.add("selected");
+
+        });
+
+    });
+
+
+    /* -------------------------
+       Search Queue
+    ------------------------- */
+
+    function filterDocuments() {
+
+        const searchValue =
+            approvalSearch
+                ? approvalSearch.value.toLowerCase().trim()
+                : "";
+
+        const priorityValue =
+            approvalFilter
+                ? approvalFilter.value
+                : "all";
+
+
+        documentItems.forEach(item => {
+
+            const text =
+                item.textContent.toLowerCase();
+
+            const priority =
+                item.dataset.priority;
+
+
+            const matchesSearch =
+                text.includes(searchValue);
+
+            const matchesPriority =
+                priorityValue === "all" ||
+                priority === priorityValue;
+
+
+            if (matchesSearch && matchesPriority) {
+
+                item.style.display = "grid";
+
+            } else {
+
+                item.style.display = "none";
+
+            }
+
+        });
+
+    }
+
+
+    if (approvalSearch) {
+
+        approvalSearch.addEventListener(
+            "input",
+            filterDocuments
+        );
+
+    }
+
+
+    if (approvalFilter) {
+
+        approvalFilter.addEventListener(
+            "change",
+            filterDocuments
+        );
+
+    }
+
+
+    /* -------------------------
+       Approval Wireframe
+    ------------------------- */
+
+    if (approveButton) {
+
+        approveButton.addEventListener("click", () => {
+
+            const branch =
+                document.getElementById("targetBranch");
+
+            if (!branch || !branch.value) {
+
+                alert(
+                    "Please select a receiving branch before approval."
+                );
+
+                return;
+
+            }
+
+            alert(
+                "Wireframe action: document approved and routed to " +
+                branch.options[branch.selectedIndex].text
+            );
+
+        });
+
+    }
+
+
+    /* -------------------------
+       Return Document
+    ------------------------- */
+
+    if (rejectButton) {
+
+        rejectButton.addEventListener("click", () => {
+
+            const instruction =
+                document.getElementById("approvalInstruction");
+
+            if (instruction) {
+
+                instruction.focus();
+
+            }
+
+            alert(
+                "Wireframe action: document returned for correction."
+            );
+
+        });
+
+    }
+
+});
