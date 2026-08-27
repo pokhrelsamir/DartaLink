@@ -387,3 +387,87 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 });
+
+/* =========================================
+   August 27 - Authentication & Portal
+========================================= */
+
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const loginForm =
+        document.getElementById("loginForm");
+
+    const loginMessage =
+        document.getElementById("loginMessage");
+
+    const logoutButton =
+        document.getElementById("logoutButton");
+
+
+    /* -------------------------
+       Login UI
+    ------------------------- */
+
+    if (loginForm) {
+
+        loginForm.addEventListener("submit", (event) => {
+
+            /*
+             * August 27:
+             * UI prototype only.
+             *
+             * Real Django authentication will be
+             * connected during backend development.
+             */
+
+            event.preventDefault();
+
+
+            const username =
+                document.getElementById("username").value.trim();
+
+            const password =
+                document.getElementById("password").value.trim();
+
+
+            if (!username || !password) {
+
+                if (loginMessage) {
+
+                    loginMessage.textContent =
+                        "Please enter your employee ID and password.";
+
+                }
+
+                return;
+
+            }
+
+
+            /*
+             * Temporary prototype navigation.
+             */
+
+            window.location.href = "/portal/";
+
+        });
+
+    }
+
+
+    /* -------------------------
+       Logout UI
+    ------------------------- */
+
+    if (logoutButton) {
+
+        logoutButton.addEventListener("click", () => {
+
+            window.location.href = "/login/";
+
+        });
+
+    }
+
+});
