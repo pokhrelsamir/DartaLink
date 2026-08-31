@@ -13,3 +13,6 @@ def portal_view(request):
         request,
         "portal.html"
     )
+
+def camera_capture_view(request):
+    return render(request, "camera-capture.html")

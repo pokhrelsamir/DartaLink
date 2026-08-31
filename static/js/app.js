@@ -471,3 +471,274 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 });
+
+
+
+/* =========================================================
+   DARTALINK CAMERA CAPTURE
+   August 31, 2026
+   ========================================================= */
+
+const cameraVideo = document.getElementById("cameraVideo");
+const cameraCanvas = document.getElementById("cameraCanvas");
+const cameraPlaceholder = document.getElementById("cameraPlaceholder");
+
+const startCameraButton = document.getElementById("startCameraButton");
+const captureButton = document.getElementById("captureButton");
+const stopCameraButton = document.getElementById("stopCameraButton");
+
+const capturedSection = document.getElementById("capturedSection");
+const capturedImage = document.getElementById("capturedImage");
+
+const retakeButton = document.getElementById("retakeButton");
+const continueButton = document.getElementById("continueButton");
+
+const documentFile = document.getElementById("documentFile");
+const fileName = document.getElementById("fileName");
+const captureMethod = document.getElementById("captureMethod");
+
+let cameraStream = null;
+
+
+/* Start Camera */
+
+async function startDocumentCamera() {
+
+    if (!cameraVideo) {
+        return;
+    }
+
+    try {
+
+        cameraStream = await navigator.mediaDevices.getUserMedia({
+            video: {
+                facingMode: {
+                    ideal: "environment"
+                }
+            },
+            audio: false
+        });
+
+        cameraVideo.srcObject = cameraStream;
+
+        cameraVideo.style.display = "block";
+
+        if (cameraPlaceholder) {
+            cameraPlaceholder.style.display = "none";
+        }
+
+        if (captureButton) {
+            captureButton.disabled = false;
+        }
+
+    } catch (error) {
+
+        console.error("Camera access error:", error);
+
+        alert(
+            "Unable to access the camera. " +
+            "Please allow camera permission or choose an image file instead."
+        );
+    }
+}
+
+
+/* Stop Camera */
+
+function stopDocumentCamera() {
+
+    if (cameraStream) {
+
+        cameraStream.getTracks().forEach(function(track) {
+            track.stop();
+        });
+
+        cameraStream = null;
+    }
+
+    if (cameraVideo) {
+        cameraVideo.srcObject = null;
+    }
+
+    if (captureButton) {
+        captureButton.disabled = true;
+    }
+}
+
+
+/* Capture Image */
+
+function captureDocumentImage() {
+
+    if (!cameraVideo || !cameraCanvas) {
+        return;
+    }
+
+    if (!cameraStream) {
+        return;
+    }
+
+    const width = cameraVideo.videoWidth;
+    const height = cameraVideo.videoHeight;
+
+    if (!width || !height) {
+        alert("Camera is not ready yet. Please try again.");
+        return;
+    }
+
+    cameraCanvas.width = width;
+    cameraCanvas.height = height;
+
+    const context = cameraCanvas.getContext("2d");
+
+    context.drawImage(
+        cameraVideo,
+        0,
+        0,
+        width,
+        height
+    );
+
+    const imageData = cameraCanvas.toDataURL(
+        "image/jpeg",
+        0.92
+    );
+
+    showCapturedDocument(
+        imageData,
+        "Camera"
+    );
+
+    stopDocumentCamera();
+}
+
+
+/* Show Captured Document */
+
+function showCapturedDocument(imageData, method) {
+
+    if (!capturedImage || !capturedSection) {
+        return;
+    }
+
+    capturedImage.src = imageData;
+
+    capturedSection.classList.remove("hidden");
+
+    if (captureMethod) {
+        captureMethod.textContent = method;
+    }
+
+    capturedSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
+
+
+/* File Upload */
+
+if (documentFile) {
+
+    documentFile.addEventListener("change", function(event) {
+
+        const file = event.target.files[0];
+
+        if (!file) {
+            return;
+        }
+
+        if (!file.type.startsWith("image/")) {
+
+            alert("Please select an image file.");
+
+            documentFile.value = "";
+
+            return;
+        }
+
+        fileName.textContent = file.name;
+
+        const reader = new FileReader();
+
+        reader.onload = function(loadEvent) {
+
+            showCapturedDocument(
+                loadEvent.target.result,
+                "File Upload"
+            );
+
+        };
+
+        reader.readAsDataURL(file);
+    });
+}
+
+
+/* Camera Buttons */
+
+if (startCameraButton) {
+
+    startCameraButton.addEventListener(
+        "click",
+        startDocumentCamera
+    );
+}
+
+
+if (captureButton) {
+
+    captureButton.addEventListener(
+        "click",
+        captureDocumentImage
+    );
+}
+
+
+if (stopCameraButton) {
+
+    stopCameraButton.addEventListener(
+        "click",
+        stopDocumentCamera
+    );
+}
+
+
+/* Retake */
+
+if (retakeButton) {
+
+    retakeButton.addEventListener(
+        "click",
+        function() {
+
+            capturedSection.classList.add("hidden");
+
+            startDocumentCamera();
+
+        }
+    );
+}
+
+
+/* Continue */
+
+if (continueButton) {
+
+    continueButton.addEventListener(
+        "click",
+        function() {
+
+            window.location.href = "/darta-entry/";
+
+        }
+    );
+}
+
+
+/* Stop camera when leaving page */
+
+window.addEventListener(
+    "beforeunload",
+    stopDocumentCamera
+);

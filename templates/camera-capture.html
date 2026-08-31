@@ -1,0 +1,394 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DartaLink | Camera Capture</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body class="camera-page">
+
+    <div class="camera-layout">
+
+        <!-- Sidebar -->
+        <aside class="camera-sidebar">
+
+            <div class="brand-block">
+                <div class="brand-mark">DL</div>
+
+                <div>
+                    <h2>DartaLink</h2>
+                    <span>Document Workflow</span>
+                </div>
+            </div>
+
+            <nav class="camera-nav">
+
+                <a href="/" class="camera-nav-item">
+                    <span>⌂</span>
+                    Dashboard
+                </a>
+
+                <a href="/darta-entry/" class="camera-nav-item">
+                    <span>▣</span>
+                    Darta / Chalani
+                </a>
+
+                <a href="/camera-capture/" class="camera-nav-item active">
+                    <span>◉</span>
+                    Camera Capture
+                </a>
+
+                <a href="/approval-dashboard/" class="camera-nav-item">
+                    <span>✓</span>
+                    Approval Queue
+                </a>
+
+                <a href="/portal/" class="camera-nav-item">
+                    <span>▤</span>
+                    Branch Workspace
+                </a>
+
+            </nav>
+
+            <div class="sidebar-footer">
+                <small>Logged in as</small>
+                <strong>Employee</strong>
+                <span>Darta / Chalani Section</span>
+            </div>
+
+        </aside>
+
+
+        <!-- Main Content -->
+        <main class="camera-main">
+
+            <!-- Header -->
+            <header class="camera-header">
+
+                <div>
+                    <span class="page-kicker">DARTA / CHALANI</span>
+                    <h1>Capture Physical Document</h1>
+                    <p>
+                        Capture a clear image of the incoming physical letter
+                        for digital registration.
+                    </p>
+                </div>
+
+                <div class="camera-header-status">
+                    <span class="status-dot"></span>
+                    Camera Ready
+                </div>
+
+            </header>
+
+
+            <!-- Progress -->
+            <section class="capture-progress">
+
+                <div class="progress-step active">
+                    <span>01</span>
+                    <strong>Capture</strong>
+                </div>
+
+                <div class="progress-line"></div>
+
+                <div class="progress-step">
+                    <span>02</span>
+                    <strong>Review</strong>
+                </div>
+
+                <div class="progress-line"></div>
+
+                <div class="progress-step">
+                    <span>03</span>
+                    <strong>Register</strong>
+                </div>
+
+            </section>
+
+
+            <!-- Camera Workspace -->
+            <section class="camera-workspace">
+
+                <div class="camera-card">
+
+                    <div class="camera-card-header">
+
+                        <div>
+                            <h2>Document Camera</h2>
+                            <p>
+                                Position the complete document inside the frame.
+                            </p>
+                        </div>
+
+                        <span class="camera-indicator">
+                            ● LIVE
+                        </span>
+
+                    </div>
+
+
+                    <!-- Live Camera -->
+                    <div class="camera-preview-wrapper">
+
+                        <video
+                            id="cameraVideo"
+                            class="camera-video"
+                            autoplay
+                            playsinline>
+                        </video>
+
+                        <canvas
+                            id="cameraCanvas"
+                            class="camera-canvas">
+                        </canvas>
+
+                        <div
+                            id="cameraPlaceholder"
+                            class="camera-placeholder">
+
+                            <div class="camera-placeholder-icon">
+                                ◉
+                            </div>
+
+                            <h3>Camera preview</h3>
+
+                            <p>
+                                Allow camera access to capture the document.
+                            </p>
+
+                        </div>
+
+                        <div class="document-frame">
+
+                            <div class="frame-corner top-left"></div>
+                            <div class="frame-corner top-right"></div>
+                            <div class="frame-corner bottom-left"></div>
+                            <div class="frame-corner bottom-right"></div>
+
+                            <span>
+                                Place document here
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Camera Controls -->
+                    <div class="camera-controls">
+
+                        <button
+                            type="button"
+                            id="startCameraButton"
+                            class="camera-button secondary">
+
+                            Start Camera
+
+                        </button>
+
+                        <button
+                            type="button"
+                            id="captureButton"
+                            class="camera-button primary"
+                            disabled>
+
+                            Capture Document
+
+                        </button>
+
+                        <button
+                            type="button"
+                            id="stopCameraButton"
+                            class="camera-button secondary">
+
+                            Stop Camera
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Right Panel -->
+                <aside class="capture-side-panel">
+
+                    <div class="capture-info-card">
+
+                        <div class="info-card-icon">
+                            01
+                        </div>
+
+                        <h3>Capture Guidelines</h3>
+
+                        <ul>
+                            <li>Place the entire document inside the frame.</li>
+                            <li>Keep the document flat and straight.</li>
+                            <li>Make sure the text is clearly visible.</li>
+                            <li>Avoid strong shadows and reflections.</li>
+                            <li>Use sufficient lighting.</li>
+                        </ul>
+
+                    </div>
+
+
+                    <div class="capture-info-card">
+
+                        <div class="info-card-icon">
+                            02
+                        </div>
+
+                        <h3>Alternative Upload</h3>
+
+                        <p>
+                            If a camera is not available, select an existing
+                            document image from the device.
+                        </p>
+
+                        <label
+                            for="documentFile"
+                            class="upload-button">
+
+                            Choose Document Image
+
+                        </label>
+
+                        <input
+                            type="file"
+                            id="documentFile"
+                            accept="image/*"
+                            hidden>
+
+                        <span
+                            id="fileName"
+                            class="selected-file">
+                        </span>
+
+                    </div>
+
+
+                    <div class="capture-info-card security-card">
+
+                        <div class="info-card-icon">
+                            ✓
+                        </div>
+
+                        <h3>Document Handling</h3>
+
+                        <p>
+                            The captured document will be reviewed before
+                            being registered into the DartaLink workflow.
+                        </p>
+
+                    </div>
+
+                </aside>
+
+            </section>
+
+
+            <!-- Captured Image -->
+            <section
+                id="capturedSection"
+                class="captured-section hidden">
+
+                <div class="captured-header">
+
+                    <div>
+                        <span class="page-kicker">CAPTURE COMPLETE</span>
+
+                        <h2>Review Captured Document</h2>
+
+                        <p>
+                            Check the image before continuing.
+                        </p>
+                    </div>
+
+                    <span class="capture-success">
+                        ✓ Image Captured
+                    </span>
+
+                </div>
+
+
+                <div class="captured-content">
+
+                    <div class="captured-image-wrapper">
+
+                        <img
+                            id="capturedImage"
+                            src=""
+                            alt="Captured document">
+
+                    </div>
+
+
+                    <div class="captured-details">
+
+                        <div class="detail-row">
+                            <span>Status</span>
+                            <strong>Ready for Review</strong>
+                        </div>
+
+                        <div class="detail-row">
+                            <span>Document Type</span>
+                            <strong>Physical Letter</strong>
+                        </div>
+
+                        <div class="detail-row">
+                            <span>Capture Method</span>
+                            <strong id="captureMethod">
+                                Camera
+                            </strong>
+                        </div>
+
+                        <div class="detail-row">
+                            <span>Processing</span>
+                            <strong>Pending Registration</strong>
+                        </div>
+
+
+                        <div class="captured-actions">
+
+                            <button
+                                type="button"
+                                id="retakeButton"
+                                class="camera-button secondary">
+
+                                Retake
+
+                            </button>
+
+                            <button
+                                type="button"
+                                id="continueButton"
+                                class="camera-button primary">
+
+                                Continue to Registration
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <script src="{% static 'js/app.js' %}"></script>
+
+</body>
+</html>
