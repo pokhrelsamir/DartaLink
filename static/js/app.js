@@ -742,3 +742,306 @@ window.addEventListener(
     "beforeunload",
     stopDocumentCamera
 );
+
+/* =========================================================
+   DARTALINK MANUAL DARTA ENTRY
+   September 1, 2026
+   ========================================================= */
+
+const dartaEntryForm =
+    document.getElementById("dartaEntryForm");
+
+const senderInput =
+    document.getElementById("sender");
+
+const subjectInput =
+    document.getElementById("subject");
+
+const referenceInput =
+    document.getElementById("referenceNumber");
+
+const dateInput =
+    document.getElementById("letterDate");
+
+const urgencyInput =
+    document.getElementById("urgency");
+
+const branchInput =
+    document.getElementById("receivingBranch");
+
+
+const previewSender =
+    document.getElementById("previewSender");
+
+const previewSubject =
+    document.getElementById("previewSubject");
+
+const previewReference =
+    document.getElementById("previewReference");
+
+const previewDate =
+    document.getElementById("previewDate");
+
+const previewUrgency =
+    document.getElementById("previewUrgency");
+
+const previewBranch =
+    document.getElementById("previewBranch");
+
+
+/* Update Preview */
+
+function updateDartaPreview() {
+
+    if (!dartaEntryForm) {
+        return;
+    }
+
+
+    if (previewSender) {
+        previewSender.textContent =
+            senderInput.value.trim() || "—";
+    }
+
+
+    if (previewSubject) {
+        previewSubject.textContent =
+            subjectInput.value.trim() || "—";
+    }
+
+
+    if (previewReference) {
+        previewReference.textContent =
+            referenceInput.value.trim() || "—";
+    }
+
+
+    if (previewDate) {
+
+        if (dateInput.value) {
+
+            const date =
+                new Date(
+                    dateInput.value + "T00:00:00"
+                );
+
+            previewDate.textContent =
+                date.toLocaleDateString(
+                    "en-GB",
+                    {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric"
+                    }
+                );
+
+        } else {
+
+            previewDate.textContent = "—";
+
+        }
+    }
+
+
+    if (previewUrgency) {
+
+        if (urgencyInput.value) {
+
+            previewUrgency.textContent =
+                urgencyInput.options[
+                    urgencyInput.selectedIndex
+                ].text;
+
+        } else {
+
+            previewUrgency.textContent = "—";
+
+        }
+    }
+
+
+    if (previewBranch) {
+
+        if (branchInput.value) {
+
+            previewBranch.textContent =
+                branchInput.options[
+                    branchInput.selectedIndex
+                ].text;
+
+        } else {
+
+            previewBranch.textContent = "—";
+
+        }
+    }
+}
+
+
+/* Live Preview Listeners */
+
+[
+    senderInput,
+    subjectInput,
+    referenceInput,
+    dateInput,
+    urgencyInput,
+    branchInput
+].forEach(function(element) {
+
+    if (element) {
+
+        element.addEventListener(
+            "input",
+            updateDartaPreview
+        );
+
+        element.addEventListener(
+            "change",
+            updateDartaPreview
+        );
+    }
+});
+
+
+/* Validation */
+
+function validateDartaForm() {
+
+    if (!dartaEntryForm) {
+        return false;
+    }
+
+
+    const requiredFields = [
+        senderInput,
+        subjectInput,
+        dateInput,
+        urgencyInput,
+        branchInput
+    ];
+
+
+    let valid = true;
+
+
+    requiredFields.forEach(function(field) {
+
+        if (!field) {
+            return;
+        }
+
+
+        const wrapper =
+            field.closest(".darta-field");
+
+
+        if (!field.value.trim()) {
+
+            valid = false;
+
+            if (wrapper) {
+                wrapper.classList.add(
+                    "validation-error"
+                );
+            }
+
+        } else {
+
+            if (wrapper) {
+                wrapper.classList.remove(
+                    "validation-error"
+                );
+            }
+        }
+    });
+
+
+    if (!valid) {
+
+        alert(
+            "Please complete all required Darta fields."
+        );
+
+    }
+
+
+    return valid;
+}
+
+
+/* Form Submit */
+
+if (dartaEntryForm) {
+
+    dartaEntryForm.addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+
+            if (!validateDartaForm()) {
+                return;
+            }
+
+
+            alert(
+                "Darta information is ready for review."
+            );
+
+        }
+    );
+}
+
+
+/* Save Draft */
+
+const saveDraftButton =
+    document.getElementById(
+        "saveDraftButton"
+    );
+
+
+if (saveDraftButton) {
+
+    saveDraftButton.addEventListener(
+        "click",
+        function() {
+
+            updateDartaPreview();
+
+            alert(
+                "Draft preview prepared. " +
+                "Database saving will be connected in the backend phase."
+            );
+
+        }
+    );
+}
+
+
+/* Cancel */
+
+const cancelDartaButton =
+    document.getElementById(
+        "cancelDartaButton"
+    );
+
+
+if (cancelDartaButton) {
+
+    cancelDartaButton.addEventListener(
+        "click",
+        function() {
+
+            window.location.href = "/";
+
+        }
+    );
+}
+
+
+/* Initial Preview */
+
+updateDartaPreview();

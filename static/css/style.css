@@ -2468,3 +2468,815 @@ select {
         gap: 12px;
     }
 }
+
+/* =========================================================
+   DARTALINK MANUAL DARTA ENTRY
+   September 1, 2026
+   ========================================================= */
+
+.darta-entry-page {
+    margin: 0;
+    background: #f3f6f8;
+    color: #1b2a33;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.darta-entry-layout {
+    min-height: 100vh;
+    display: flex;
+}
+
+
+/* Sidebar */
+
+.darta-entry-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: 250px;
+
+    background: #172a3a;
+    color: #ffffff;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.darta-entry-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 27px 22px;
+
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.darta-brand-mark {
+    width: 42px;
+    height: 42px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 9px;
+
+    background: #ffffff;
+    color: #172a3a;
+
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.darta-entry-brand h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.darta-entry-brand span {
+    display: block;
+    margin-top: 3px;
+
+    color: rgba(255,255,255,0.62);
+
+    font-size: 10px;
+}
+
+
+.darta-entry-nav {
+    padding: 20px 12px;
+}
+
+.darta-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 13px 14px;
+    margin-bottom: 5px;
+
+    border-radius: 7px;
+
+    color: rgba(255,255,255,0.7);
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    transition: 0.2s ease;
+}
+
+.darta-nav-link:hover,
+.darta-nav-link.active {
+    background: rgba(255,255,255,0.1);
+    color: #ffffff;
+}
+
+.darta-nav-link span {
+    width: 20px;
+    text-align: center;
+}
+
+
+.darta-entry-user {
+    margin-top: auto;
+
+    padding: 20px;
+
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.darta-entry-user small,
+.darta-entry-user span {
+    display: block;
+
+    color: rgba(255,255,255,0.55);
+
+    font-size: 10px;
+}
+
+.darta-entry-user strong {
+    display: block;
+
+    margin: 5px 0;
+
+    font-size: 13px;
+}
+
+
+/* Main */
+
+.darta-entry-main {
+    width: calc(100% - 250px);
+
+    margin-left: 250px;
+
+    padding: 38px 44px 60px;
+}
+
+
+.darta-entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap: 25px;
+
+    margin-bottom: 25px;
+}
+
+.darta-page-kicker {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #557184;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+}
+
+.darta-entry-header h1 {
+    margin: 0;
+
+    font-size: 30px;
+    letter-spacing: -0.5px;
+}
+
+.darta-entry-header p {
+    margin: 8px 0 0;
+
+    color: #71808a;
+
+    font-size: 13px;
+}
+
+
+.darta-header-status {
+    padding: 9px 13px;
+
+    border: 1px solid #dce4e8;
+    border-radius: 6px;
+
+    background: #ffffff;
+
+    color: #667680;
+
+    font-size: 11px;
+
+    white-space: nowrap;
+}
+
+.darta-status-dot {
+    display: inline-block;
+
+    width: 7px;
+    height: 7px;
+
+    margin-right: 6px;
+
+    border-radius: 50%;
+
+    background: #d49b42;
+}
+
+
+/* Progress */
+
+.darta-form-progress {
+    display: flex;
+    align-items: center;
+
+    max-width: 700px;
+
+    margin-bottom: 25px;
+}
+
+.darta-progress-step {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    color: #8b969d;
+
+    font-size: 11px;
+}
+
+.darta-progress-step span {
+    width: 28px;
+    height: 28px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    background: #e0e6e9;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.darta-progress-step.active {
+    color: #1d566f;
+}
+
+.darta-progress-step.active span {
+    background: #1d566f;
+    color: #ffffff;
+}
+
+.darta-progress-line {
+    width: 55px;
+    height: 1px;
+
+    margin: 0 12px;
+
+    background: #d4dde2;
+}
+
+
+/* Workspace */
+
+.darta-form-workspace {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        315px;
+
+    gap: 22px;
+
+    align-items: start;
+}
+
+
+.darta-form-card,
+.darta-preview-card,
+.darta-camera-card,
+.darta-workflow-card {
+    background: #ffffff;
+
+    border: 1px solid #dce4e8;
+
+    border-radius: 9px;
+}
+
+
+/* Form Header */
+
+.darta-form-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    padding: 22px;
+
+    border-bottom: 1px solid #e4e9ec;
+}
+
+.darta-form-card-header h2 {
+    margin: 0;
+
+    font-size: 18px;
+}
+
+.darta-form-card-header p {
+    margin: 5px 0 0;
+
+    color: #78858d;
+
+    font-size: 11px;
+}
+
+.required-note {
+    color: #8a6d3b;
+    font-size: 10px;
+}
+
+
+/* Form Sections */
+
+.darta-form-section {
+    padding: 25px 22px;
+
+    border-bottom: 1px solid #e5eaed;
+}
+
+.darta-section-title {
+    display: flex;
+
+    gap: 12px;
+
+    margin-bottom: 20px;
+}
+
+.darta-section-title > span {
+    width: 28px;
+    height: 28px;
+
+    flex: 0 0 28px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 6px;
+
+    background: #eef3f5;
+
+    color: #315f73;
+
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.darta-section-title h3 {
+    margin: 0;
+
+    font-size: 14px;
+}
+
+.darta-section-title p {
+    margin: 4px 0 0;
+
+    color: #7a878f;
+
+    font-size: 11px;
+}
+
+
+/* Grid */
+
+.darta-form-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 17px;
+}
+
+.darta-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.darta-field.full {
+    grid-column: 1 / -1;
+}
+
+.darta-field label {
+    margin-bottom: 7px;
+
+    color: #34454f;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.darta-field label span {
+    color: #b45151;
+}
+
+
+.darta-field input,
+.darta-field select,
+.darta-field textarea {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 11px 12px;
+
+    border: 1px solid #d4dfe4;
+    border-radius: 5px;
+
+    background: #ffffff;
+
+    color: #263842;
+
+    font-family: inherit;
+    font-size: 12px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.darta-field input:focus,
+.darta-field select:focus,
+.darta-field textarea:focus {
+    border-color: #668c9e;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(67, 110, 130, 0.08);
+}
+
+.darta-field textarea {
+    resize: vertical;
+}
+
+.darta-field small {
+    margin-top: 5px;
+
+    color: #8a969d;
+
+    font-size: 9px;
+}
+
+
+/* Form Actions */
+
+.darta-form-actions {
+    display: flex;
+    justify-content: flex-end;
+
+    gap: 9px;
+
+    padding: 18px 22px;
+}
+
+.darta-button {
+    border: 0;
+
+    border-radius: 5px;
+
+    padding: 11px 17px;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.darta-button.primary {
+    background: #1d566f;
+    color: #ffffff;
+}
+
+.darta-button.primary:hover {
+    background: #164457;
+}
+
+.darta-button.secondary {
+    background: #eef2f4;
+    color: #455762;
+}
+
+.darta-button.secondary:hover {
+    background: #e2e8eb;
+}
+
+
+/* Preview */
+
+.darta-form-sidebar {
+    display: flex;
+    flex-direction: column;
+
+    gap: 14px;
+}
+
+.darta-preview-card {
+    overflow: hidden;
+}
+
+.darta-preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    padding: 18px;
+
+    border-bottom: 1px solid #e3e8eb;
+}
+
+.darta-preview-header > div:first-child span {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #839099;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+.darta-preview-header h3 {
+    margin: 0;
+
+    font-size: 16px;
+}
+
+.darta-preview-number {
+    padding: 5px 7px;
+
+    border-radius: 4px;
+
+    background: #f1f4f5;
+
+    color: #77858d;
+
+    font-size: 8px;
+    font-weight: 800;
+}
+
+
+.darta-preview-body {
+    padding: 5px 18px;
+}
+
+.preview-row {
+    padding: 13px 0;
+
+    border-bottom: 1px solid #edf0f2;
+}
+
+.preview-row span {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #89949a;
+
+    font-size: 9px;
+}
+
+.preview-row strong {
+    display: block;
+
+    color: #34454f;
+
+    font-size: 11px;
+
+    line-height: 1.45;
+
+    word-break: break-word;
+}
+
+.preview-urgency {
+    text-transform: capitalize;
+}
+
+
+.darta-preview-footer {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 13px 18px;
+
+    background: #f8fafb;
+
+    font-size: 9px;
+}
+
+.darta-preview-footer span {
+    color: #8b969c;
+}
+
+.darta-preview-footer strong {
+    color: #52636c;
+}
+
+
+/* Camera Shortcut */
+
+.darta-camera-card {
+    padding: 19px;
+
+    background: #f6fafb;
+}
+
+.darta-camera-icon {
+    width: 34px;
+    height: 34px;
+
+    display: grid;
+    place-items: center;
+
+    margin-bottom: 11px;
+
+    border-radius: 7px;
+
+    background: #e5eef1;
+
+    color: #315f73;
+}
+
+.darta-camera-card h3,
+.darta-workflow-card h3 {
+    margin: 0 0 8px;
+
+    font-size: 14px;
+}
+
+.darta-camera-card p {
+    margin: 0;
+
+    color: #73818a;
+
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.darta-camera-link {
+    display: inline-block;
+
+    margin-top: 12px;
+
+    color: #315f73;
+
+    text-decoration: none;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+/* Workflow */
+
+.darta-workflow-card {
+    padding: 19px;
+}
+
+.workflow-mini-step {
+    display: flex;
+
+    gap: 10px;
+
+    padding: 10px 0;
+
+    border-bottom: 1px solid #edf0f2;
+}
+
+.workflow-mini-step:last-child {
+    border-bottom: 0;
+}
+
+.workflow-mini-step span {
+    width: 22px;
+    height: 22px;
+
+    flex: 0 0 22px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    background: #eef3f5;
+
+    color: #315f73;
+
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.workflow-mini-step p {
+    margin: 2px 0 0;
+
+    color: #71808a;
+
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+
+/* Validation */
+
+.darta-field.validation-error input,
+.darta-field.validation-error select,
+.darta-field.validation-error textarea {
+    border-color: #bd6b6b;
+
+    background: #fffafa;
+}
+
+
+/* Responsive */
+
+@media (max-width: 1050px) {
+
+    .darta-form-workspace {
+        grid-template-columns: 1fr;
+    }
+
+    .darta-form-sidebar {
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+}
+
+
+@media (max-width: 850px) {
+
+    .darta-entry-sidebar {
+        width: 210px;
+    }
+
+    .darta-entry-main {
+        width: calc(100% - 210px);
+
+        margin-left: 210px;
+
+        padding: 28px;
+    }
+
+    .darta-form-sidebar {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+@media (max-width: 650px) {
+
+    .darta-entry-sidebar {
+        display: none;
+    }
+
+    .darta-entry-main {
+        width: 100%;
+
+        margin-left: 0;
+
+        padding: 20px;
+    }
+
+    .darta-entry-header {
+        flex-direction: column;
+    }
+
+    .darta-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .darta-field.full {
+        grid-column: auto;
+    }
+
+    .darta-form-actions {
+        flex-direction: column;
+    }
+
+    .darta-button {
+        width: 100%;
+    }
+
+    .darta-form-progress {
+        overflow-x: auto;
+    }
+}

@@ -1,355 +1,585 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>DartaLink | New Darta Entry</title>
 
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link
+        rel="stylesheet"
+        href="{% static 'css/style.css' %}"
+    >
 </head>
 
-<body>
+<body class="darta-entry-page">
 
-    <header class="topbar">
-        <div class="brand">
-            <div class="brand-mark">DL</div>
+<div class="darta-entry-layout">
 
-            <div>
-                <h1>DartaLink</h1>
-                <span>Document Registration & Routing</span>
+    <!-- Sidebar -->
+
+    <aside class="darta-entry-sidebar">
+
+        <div class="darta-entry-brand">
+
+            <div class="darta-brand-mark">
+                DL
             </div>
-        </div>
 
-        <div class="topbar-user">
-            <span>Darta / Chalani Section</span>
-            <div class="user-avatar">DC</div>
-        </div>
-    </header>
-
-
-    <main class="page-container">
-
-        <div class="page-heading">
             <div>
-                <p class="eyebrow">DARTA / CHALANI</p>
-                <h2>Register Incoming Document</h2>
-                <p class="page-description">
-                    Capture the physical document and enter its basic registration details.
+                <h2>DartaLink</h2>
+                <span>Document Workflow</span>
+            </div>
+
+        </div>
+
+
+        <nav class="darta-entry-nav">
+
+            <a href="/" class="darta-nav-link">
+                <span>⌂</span>
+                Dashboard
+            </a>
+
+            <a
+                href="/darta-entry/"
+                class="darta-nav-link active"
+            >
+                <span>▣</span>
+                New Darta
+            </a>
+
+            <a
+                href="/camera-capture/"
+                class="darta-nav-link"
+            >
+                <span>◉</span>
+                Camera Capture
+            </a>
+
+            <a
+                href="/approval-dashboard/"
+                class="darta-nav-link"
+            >
+                <span>✓</span>
+                Approval Queue
+            </a>
+
+            <a
+                href="/portal/"
+                class="darta-nav-link"
+            >
+                <span>▤</span>
+                Branch Workspace
+            </a>
+
+        </nav>
+
+
+        <div class="darta-entry-user">
+
+            <small>Logged in as</small>
+
+            <strong>
+                Darta Staff
+            </strong>
+
+            <span>
+                Darta / Chalani Section
+            </span>
+
+        </div>
+
+    </aside>
+
+
+    <!-- Main -->
+
+    <main class="darta-entry-main">
+
+        <!-- Header -->
+
+        <header class="darta-entry-header">
+
+            <div>
+
+                <span class="darta-page-kicker">
+                    DARTA REGISTRATION
+                </span>
+
+                <h1>
+                    Create New Darta
+                </h1>
+
+                <p>
+                    Enter the details of the incoming letter
+                    to create its digital Darta record.
                 </p>
+
             </div>
 
-            <a href="/" class="secondary-button">Back to Dashboard</a>
-        </div>
 
+            <div class="darta-header-status">
 
-        <div class="workflow-steps">
+                <span class="darta-status-dot"></span>
 
-            <div class="workflow-step active">
-                <span>1</span>
-                <div>
-                    <strong>Document Capture</strong>
-                    <small>Photo of physical document</small>
-                </div>
+                Draft Entry
+
             </div>
 
-            <div class="step-line"></div>
+        </header>
 
-            <div class="workflow-step">
-                <span>2</span>
-                <div>
-                    <strong>Document Details</strong>
-                    <small>Enter registration information</small>
-                </div>
+
+        <!-- Progress -->
+
+        <section class="darta-form-progress">
+
+            <div class="darta-progress-step active">
+
+                <span>01</span>
+
+                <strong>
+                    Document Details
+                </strong>
+
             </div>
 
-            <div class="step-line"></div>
 
-            <div class="workflow-step">
-                <span>3</span>
-                <div>
-                    <strong>Review & Register</strong>
-                    <small>Verify before submission</small>
-                </div>
+            <div class="darta-progress-line"></div>
+
+
+            <div class="darta-progress-step">
+
+                <span>02</span>
+
+                <strong>
+                    Review
+                </strong>
+
             </div>
 
-        </div>
+
+            <div class="darta-progress-line"></div>
 
 
-        <section class="entry-grid">
+            <div class="darta-progress-step">
 
-            <!-- Camera / Photo Capture -->
+                <span>03</span>
 
-            <div class="card capture-card">
+                <strong>
+                    Register
+                </strong>
 
-                <div class="card-header">
+            </div>
+
+        </section>
+
+
+        <!-- Form -->
+
+        <section class="darta-form-workspace">
+
+
+            <div class="darta-form-card">
+
+                <div class="darta-form-card-header">
+
                     <div>
-                        <p class="section-label">STEP 1</p>
-                        <h3>Capture Document</h3>
-                    </div>
 
-                    <span class="status-badge">Required</span>
-                </div>
-
-
-                <div class="camera-area" id="cameraArea">
-
-                    <div class="camera-placeholder" id="cameraPlaceholder">
-
-                        <div class="camera-icon">▣</div>
-
-                        <h4>Capture Physical Document</h4>
+                        <h2>
+                            Incoming Letter Information
+                        </h2>
 
                         <p>
-                            Use the camera to capture the incoming letter
-                            or upload an existing document photo.
+                            Provide the information available
+                            on the physical document.
                         </p>
 
-                        <div class="capture-actions">
-
-                            <button
-                                type="button"
-                                class="primary-button"
-                                id="openCameraButton"
-                            >
-                                Open Camera
-                            </button>
-
-                            <label class="secondary-button upload-label">
-                                Upload Photo
-                                <input
-                                    type="file"
-                                    id="documentPhoto"
-                                    accept="image/*"
-                                    hidden
-                                >
-                            </label>
-
-                        </div>
-
                     </div>
 
-
-                    <video
-                        id="cameraPreview"
-                        class="camera-preview hidden"
-                        autoplay
-                        playsinline
-                    ></video>
-
-                    <canvas
-                        id="captureCanvas"
-                        class="hidden"
-                    ></canvas>
-
-                    <img
-                        id="photoPreview"
-                        class="photo-preview hidden"
-                        alt="Captured document preview"
-                    >
-
-                </div>
-
-
-                <div class="capture-footer">
-
-                    <span id="captureStatus">
-                        No document image selected
+                    <span class="required-note">
+                        * Required
                     </span>
 
-                    <button
-                        type="button"
-                        id="captureButton"
-                        class="primary-button hidden"
-                    >
-                        Capture Photo
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <!-- Manual Details -->
-
-            <div class="card details-card">
-
-                <div class="card-header">
-                    <div>
-                        <p class="section-label">STEP 2</p>
-                        <h3>Document Details</h3>
-                    </div>
-
-                    <span class="draft-badge">Draft</span>
                 </div>
 
 
-                <form id="dartaForm">
-
-                    <div class="form-row">
-
-                        <div class="form-group">
-                            <label for="dartaNumber">
-                                Darta Number
-                            </label>
-
-                            <input
-                                type="text"
-                                id="dartaNumber"
-                                placeholder="e.g. DRT-2026-00125"
-                            >
-                        </div>
-
-                        <div class="form-group">
-                            <label for="receivedDate">
-                                Received Date
-                            </label>
-
-                            <input
-                                type="date"
-                                id="receivedDate"
-                            >
-                        </div>
-
-                    </div>
+                <form
+                    id="dartaEntryForm"
+                    novalidate
+                >
 
 
-                    <div class="form-group">
+                    <!-- Sender -->
 
-                        <label for="sender">
-                            Sender / Organization
-                        </label>
+                    <div class="darta-form-section">
 
-                        <input
-                            type="text"
-                            id="sender"
-                            placeholder="Enter sender or organization name"
-                        >
+                        <div class="darta-section-title">
 
-                    </div>
+                            <span>
+                                01
+                            </span>
 
+                            <div>
 
-                    <div class="form-group">
+                                <h3>
+                                    Sender Information
+                                </h3>
 
-                        <label for="subject">
-                            Subject
-                        </label>
+                                <p>
+                                    Identify the person or organization
+                                    that sent the letter.
+                                </p>
 
-                        <textarea
-                            id="subject"
-                            rows="3"
-                            placeholder="Enter document subject"
-                        ></textarea>
-
-                    </div>
-
-
-                    <div class="form-row">
-
-                        <div class="form-group">
-
-                            <label for="referenceNumber">
-                                Reference Number
-                            </label>
-
-                            <input
-                                type="text"
-                                id="referenceNumber"
-                                placeholder="Sender's reference number"
-                            >
+                            </div>
 
                         </div>
 
 
-                        <div class="form-group">
+                        <div class="darta-form-grid">
 
-                            <label for="urgency">
-                                Priority
-                            </label>
+                            <div class="darta-field full">
 
-                            <select id="urgency">
+                                <label for="sender">
+                                    Sender / Received From
+                                    <span>*</span>
+                                </label>
 
-                                <option value="">
-                                    Select priority
-                                </option>
+                                <input
+                                    type="text"
+                                    id="sender"
+                                    name="sender"
+                                    placeholder="Enter sender name or organization"
+                                    required
+                                >
 
-                                <option value="normal">
-                                    Normal
-                                </option>
+                                <small>
+                                    Example: Nepal Telecom, Pokhara Office
+                                </small>
 
-                                <option value="urgent">
-                                    Urgent
-                                </option>
+                            </div>
 
-                                <option value="immediate">
-                                    Immediate
-                                </option>
 
-                            </select>
+                            <div class="darta-field">
+
+                                <label for="senderAddress">
+                                    Sender Address
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="senderAddress"
+                                    name="senderAddress"
+                                    placeholder="Enter address"
+                                >
+
+                            </div>
+
+
+                            <div class="darta-field">
+
+                                <label for="senderContact">
+                                    Contact / Reference
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="senderContact"
+                                    name="senderContact"
+                                    placeholder="Optional contact information"
+                                >
+
+                            </div>
 
                         </div>
 
                     </div>
 
 
-                    <div class="form-group">
+                    <!-- Document -->
 
-                        <label for="receivingBranch">
-                            Receiving Branch
-                        </label>
+                    <div class="darta-form-section">
 
-                        <select id="receivingBranch">
+                        <div class="darta-section-title">
 
-                            <option value="">
-                                Select receiving branch
-                            </option>
+                            <span>
+                                02
+                            </span>
 
-                            <option value="pramukh">
-                                Karyalaya Pramukh
-                            </option>
+                            <div>
 
-                            <option value="technical">
-                                Prabidhik Sakha
-                            </option>
+                                <h3>
+                                    Document Details
+                                </h3>
 
-                            <option value="accounts">
-                                Lekha Sakha
-                            </option>
+                                <p>
+                                    Enter the main information written
+                                    on the incoming letter.
+                                </p>
 
-                            <option value="revenue">
-                                Rajaswa Sakha
-                            </option>
+                            </div>
 
-                            <option value="budget">
-                                Budget Sakha
-                            </option>
+                        </div>
 
-                            <option value="it">
-                                IT Sakha
-                            </option>
 
-                        </select>
+                        <div class="darta-form-grid">
+
+                            <div class="darta-field full">
+
+                                <label for="subject">
+                                    Subject
+                                    <span>*</span>
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="subject"
+                                    name="subject"
+                                    placeholder="Enter the subject of the letter"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="darta-field">
+
+                                <label for="referenceNumber">
+                                    Reference Number
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="referenceNumber"
+                                    name="referenceNumber"
+                                    placeholder="e.g. NTC/PKR/2083/017"
+                                >
+
+                            </div>
+
+
+                            <div class="darta-field">
+
+                                <label for="letterDate">
+                                    Letter Date
+                                    <span>*</span>
+                                </label>
+
+                                <input
+                                    type="date"
+                                    id="letterDate"
+                                    name="letterDate"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="darta-field">
+
+                                <label for="documentType">
+                                    Document Type
+                                </label>
+
+                                <select
+                                    id="documentType"
+                                    name="documentType"
+                                >
+
+                                    <option value="">
+                                        Select document type
+                                    </option>
+
+                                    <option value="official-letter">
+                                        Official Letter
+                                    </option>
+
+                                    <option value="request">
+                                        Request Letter
+                                    </option>
+
+                                    <option value="notice">
+                                        Notice
+                                    </option>
+
+                                    <option value="circular">
+                                        Circular
+                                    </option>
+
+                                    <option value="other">
+                                        Other
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="darta-field">
+
+                                <label for="urgency">
+                                    Urgency
+                                    <span>*</span>
+                                </label>
+
+                                <select
+                                    id="urgency"
+                                    name="urgency"
+                                    required
+                                >
+
+                                    <option value="">
+                                        Select urgency
+                                    </option>
+
+                                    <option value="normal">
+                                        Normal
+                                    </option>
+
+                                    <option value="urgent">
+                                        Urgent
+                                    </option>
+
+                                    <option value="very-urgent">
+                                        Very Urgent
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
 
                     </div>
 
 
-                    <div class="form-actions">
+                    <!-- Routing -->
+
+                    <div class="darta-form-section">
+
+                        <div class="darta-section-title">
+
+                            <span>
+                                03
+                            </span>
+
+                            <div>
+
+                                <h3>
+                                    Receiving Branch
+                                </h3>
+
+                                <p>
+                                    Select the branch that should receive
+                                    and process the document.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="darta-form-grid">
+
+                            <div class="darta-field full">
+
+                                <label for="receivingBranch">
+                                    Receiving Branch
+                                    <span>*</span>
+                                </label>
+
+                                <select
+                                    id="receivingBranch"
+                                    name="receivingBranch"
+                                    required
+                                >
+
+                                    <option value="">
+                                        Select receiving branch
+                                    </option>
+
+                                    <option value="karyalaya-pramukh">
+                                        Karyalaya Pramukh
+                                    </option>
+
+                                    <option value="prabidhik">
+                                        Prabidhik Sakha
+                                    </option>
+
+                                    <option value="lekha">
+                                        Lekha Sakha
+                                    </option>
+
+                                    <option value="rajaswa">
+                                        Rajaswa Sakha
+                                    </option>
+
+                                    <option value="budget">
+                                        Budget Sakha
+                                    </option>
+
+                                    <option value="it">
+                                        IT Sakha
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="darta-field full">
+
+                                <label for="description">
+                                    Description / Remarks
+                                </label>
+
+                                <textarea
+                                    id="description"
+                                    name="description"
+                                    rows="5"
+                                    placeholder="Add any additional information about the document..."
+                                ></textarea>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Actions -->
+
+                    <div class="darta-form-actions">
 
                         <button
                             type="button"
-                            class="secondary-button"
+                            class="darta-button secondary"
+                            id="cancelDartaButton"
+                        >
+                            Cancel
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="darta-button secondary"
                             id="saveDraftButton"
                         >
                             Save Draft
                         </button>
 
+
                         <button
-                            type="button"
-                            class="primary-button"
-                            id="reviewButton"
+                            type="submit"
+                            class="darta-button primary"
                         >
-                            Review Entry
+                            Review Darta
                         </button>
 
                     </div>
@@ -358,65 +588,215 @@
 
             </div>
 
-        </section>
+
+            <!-- Right Preview -->
+
+            <aside class="darta-form-sidebar">
 
 
-        <!-- Review Summary -->
+                <div class="darta-preview-card">
 
-        <section class="card review-card hidden" id="reviewCard">
+                    <div class="darta-preview-header">
 
-            <div class="card-header">
+                        <div>
 
-                <div>
-                    <p class="section-label">STEP 3</p>
-                    <h3>Review Registration</h3>
+                            <span>
+                                DIGITAL RECORD
+                            </span>
+
+                            <h3>
+                                Darta Preview
+                            </h3>
+
+                        </div>
+
+                        <div class="darta-preview-number">
+                            DRAFT
+                        </div>
+
+                    </div>
+
+
+                    <div class="darta-preview-body">
+
+                        <div class="preview-row">
+
+                            <span>
+                                Sender
+                            </span>
+
+                            <strong id="previewSender">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="preview-row">
+
+                            <span>
+                                Subject
+                            </span>
+
+                            <strong id="previewSubject">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="preview-row">
+
+                            <span>
+                                Reference No.
+                            </span>
+
+                            <strong id="previewReference">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="preview-row">
+
+                            <span>
+                                Letter Date
+                            </span>
+
+                            <strong id="previewDate">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="preview-row">
+
+                            <span>
+                                Urgency
+                            </span>
+
+                            <strong
+                                id="previewUrgency"
+                                class="preview-urgency"
+                            >
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="preview-row">
+
+                            <span>
+                                Receiving Branch
+                            </span>
+
+                            <strong id="previewBranch">
+                                —
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="darta-preview-footer">
+
+                        <span>
+                            Created By
+                        </span>
+
+                        <strong>
+                            Darta / Chalani Staff
+                        </strong>
+
+                    </div>
+
                 </div>
 
-                <span class="review-status">Ready for Review</span>
 
-            </div>
+                <!-- Camera shortcut -->
 
+                <div class="darta-camera-card">
 
-            <div class="review-grid">
+                    <div class="darta-camera-icon">
+                        ◉
+                    </div>
 
-                <div>
-                    <span>Sender</span>
-                    <strong id="reviewSender">—</strong>
+                    <h3>
+                        Have a physical document?
+                    </h3>
+
+                    <p>
+                        Capture the original letter using the
+                        device camera and attach it to this record.
+                    </p>
+
+                    <a
+                        href="/camera-capture/"
+                        class="darta-camera-link"
+                    >
+                        Open Camera Capture →
+                    </a>
+
                 </div>
 
-                <div>
-                    <span>Subject</span>
-                    <strong id="reviewSubject">—</strong>
+
+                <!-- Workflow -->
+
+                <div class="darta-workflow-card">
+
+                    <h3>
+                        What happens next?
+                    </h3>
+
+                    <div class="workflow-mini-step">
+
+                        <span>1</span>
+
+                        <p>
+                            Staff enters the document information.
+                        </p>
+
+                    </div>
+
+
+                    <div class="workflow-mini-step">
+
+                        <span>2</span>
+
+                        <p>
+                            The information is reviewed.
+                        </p>
+
+                    </div>
+
+
+                    <div class="workflow-mini-step">
+
+                        <span>3</span>
+
+                        <p>
+                            The Darta record is routed to the
+                            selected branch.
+                        </p>
+
+                    </div>
+
                 </div>
 
-                <div>
-                    <span>Reference Number</span>
-                    <strong id="reviewReference">—</strong>
-                </div>
-
-                <div>
-                    <span>Priority</span>
-                    <strong id="reviewPriority">—</strong>
-                </div>
-
-                <div>
-                    <span>Receiving Branch</span>
-                    <strong id="reviewBranch">—</strong>
-                </div>
-
-                <div>
-                    <span>Document</span>
-                    <strong id="reviewDocument">Not attached</strong>
-                </div>
-
-            </div>
+            </aside>
 
         </section>
 
     </main>
 
+</div>
 
-    <script src="{% static 'js/app.js' %}"></script>
+
+<script src="{% static 'js/app.js' %}"></script>
 
 </body>
 </html>
