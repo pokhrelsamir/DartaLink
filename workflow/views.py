@@ -16,3 +16,6 @@ def portal_view(request):
 
 def camera_capture_view(request):
     return render(request, "camera-capture.html")
+
+def chalani_entry_view(request):
+    return render(request, "chalani-entry.html")

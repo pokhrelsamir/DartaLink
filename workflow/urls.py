@@ -1,15 +1,30 @@
-from django.shortcuts import render
+from django.urls import path
+
+from .views import (
+    login_view,
+    portal_view,
+    camera_capture_view,
+    darta_entry_view,
+    chalani_entry_view,
+)
 
 
-def login_view(request):
-    return render(
-        request,
-        "login.html"
-    )
-
-
-def portal_view(request):
-    return render(
-        request,
-        "portal.html"
-    )
+urlpatterns = [
+    path("login/", login_view, name="login"),
+    path("portal/", portal_view, name="portal"),
+    path(
+        "camera-capture/",
+        camera_capture_view,
+        name="camera_capture"
+    ),
+    path(
+        "darta-entry/",
+        darta_entry_view,
+        name="darta_entry"
+    ),
+    path(
+        "chalani-entry/",
+        chalani_entry_view,
+        name="chalani_entry"
+    ),
+]

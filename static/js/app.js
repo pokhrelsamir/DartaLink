@@ -1045,3 +1045,445 @@ if (cancelDartaButton) {
 /* Initial Preview */
 
 updateDartaPreview();
+
+/* =========================================================
+   DARTALINK - CHALANI / OUTWARD DISPATCH
+   September 2, 2026
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const chalaniForm = document.getElementById("chalaniForm");
+
+    if (!chalaniForm) {
+        return;
+    }
+
+    const dispatchDate = document.getElementById("dispatchDate");
+    const recipient = document.getElementById("recipient");
+    const subject = document.getElementById("subject");
+    const priority = document.getElementById("priority");
+
+    const previewDate = document.getElementById("previewDate");
+    const previewRecipient = document.getElementById("previewRecipient");
+    const previewSubject = document.getElementById("previewSubject");
+    const previewPriority = document.getElementById("previewPriority");
+
+    const chalaniNumber = document.getElementById("chalaniNumber");
+    const previewChalaniNumber = document.getElementById(
+        "previewChalaniNumber"
+    );
+
+    const attachmentInput = document.getElementById(
+        "documentAttachment"
+    );
+
+    const chooseAttachment = document.getElementById(
+        "chooseAttachment"
+    );
+
+    const attachmentZone = document.getElementById(
+        "attachmentZone"
+    );
+
+    const attachmentPreview = document.getElementById(
+        "attachmentPreview"
+    );
+
+    const attachmentName = document.getElementById(
+        "attachmentName"
+    );
+
+    const attachmentSize = document.getElementById(
+        "attachmentSize"
+    );
+
+    const removeAttachment = document.getElementById(
+        "removeAttachment"
+    );
+
+    const saveDraft = document.getElementById(
+        "saveChalaniDraft"
+    );
+
+    const cancelButton = document.getElementById(
+        "cancelChalani"
+    );
+
+
+    /* -----------------------------------------
+       Auto-numbering prototype
+       ----------------------------------------- */
+
+    function generateChalaniNumber() {
+
+        const randomNumber = Math.floor(
+            1000 + Math.random() * 9000
+        );
+
+        const number = "CH-2083-" + randomNumber;
+
+        chalaniNumber.textContent = number;
+        previewChalaniNumber.textContent = number;
+    }
+
+    generateChalaniNumber();
+
+
+    /* -----------------------------------------
+       Default dispatch date
+       ----------------------------------------- */
+
+    if (dispatchDate) {
+
+        const today = new Date();
+
+        const year = today.getFullYear();
+        const month = String(
+            today.getMonth() + 1
+        ).padStart(2, "0");
+
+        const day = String(
+            today.getDate()
+        ).padStart(2, "0");
+
+        dispatchDate.value =
+            `${year}-${month}-${day}`;
+
+        updateDatePreview();
+    }
+
+
+    /* -----------------------------------------
+       Live preview
+       ----------------------------------------- */
+
+    function updateDatePreview() {
+
+        if (!dispatchDate.value) {
+            previewDate.textContent = "—";
+            return;
+        }
+
+        const date = new Date(
+            dispatchDate.value + "T00:00:00"
+        );
+
+        previewDate.textContent =
+            date.toLocaleDateString(
+                "en-GB",
+                {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
+                }
+            );
+    }
+
+
+    function updateRecipientPreview() {
+
+        const value =
+            recipient.value.trim();
+
+        previewRecipient.textContent =
+            value || "—";
+    }
+
+
+    function updateSubjectPreview() {
+
+        const value =
+            subject.value.trim();
+
+        previewSubject.textContent =
+            value || "—";
+    }
+
+
+    function updatePriorityPreview() {
+
+        const value =
+            priority.value;
+
+        previewPriority.textContent =
+            value || "—";
+    }
+
+
+    dispatchDate.addEventListener(
+        "change",
+        updateDatePreview
+    );
+
+    recipient.addEventListener(
+        "input",
+        updateRecipientPreview
+    );
+
+    subject.addEventListener(
+        "input",
+        updateSubjectPreview
+    );
+
+    priority.addEventListener(
+        "change",
+        updatePriorityPreview
+    );
+
+
+    /* -----------------------------------------
+       File attachment
+       ----------------------------------------- */
+
+    chooseAttachment.addEventListener(
+        "click",
+        function () {
+            attachmentInput.click();
+        }
+    );
+
+
+    attachmentInput.addEventListener(
+        "change",
+        function () {
+
+            const file =
+                attachmentInput.files[0];
+
+            if (!file) {
+                return;
+            }
+
+            processAttachment(file);
+        }
+    );
+
+
+    function processAttachment(file) {
+
+        const allowedTypes = [
+            "application/pdf",
+            "image/jpeg",
+            "image/png"
+        ];
+
+        const maxSize =
+            10 * 1024 * 1024;
+
+        if (!allowedTypes.includes(file.type)) {
+
+            alert(
+                "Please select a PDF, JPG or PNG file."
+            );
+
+            attachmentInput.value = "";
+            return;
+        }
+
+
+        if (file.size > maxSize) {
+
+            alert(
+                "The selected file is larger than 10 MB."
+            );
+
+            attachmentInput.value = "";
+            return;
+        }
+
+
+        attachmentName.textContent =
+            file.name;
+
+        attachmentSize.textContent =
+            formatFileSize(file.size);
+
+        attachmentPreview.hidden = false;
+        attachmentZone.style.display = "none";
+    }
+
+
+    function formatFileSize(bytes) {
+
+        if (bytes === 0) {
+            return "0 KB";
+        }
+
+        const kilobytes =
+            bytes / 1024;
+
+        if (kilobytes < 1024) {
+            return (
+                kilobytes.toFixed(1) +
+                " KB"
+            );
+        }
+
+        return (
+            (kilobytes / 1024).toFixed(1) +
+            " MB"
+        );
+    }
+
+
+    removeAttachment.addEventListener(
+        "click",
+        function () {
+
+            attachmentInput.value = "";
+
+            attachmentPreview.hidden = true;
+            attachmentZone.style.display = "";
+        }
+    );
+
+
+    /* -----------------------------------------
+       Drag and drop
+       ----------------------------------------- */
+
+    attachmentZone.addEventListener(
+        "dragover",
+        function (event) {
+
+            event.preventDefault();
+
+            attachmentZone.classList.add(
+                "drag-active"
+            );
+        }
+    );
+
+
+    attachmentZone.addEventListener(
+        "dragleave",
+        function () {
+
+            attachmentZone.classList.remove(
+                "drag-active"
+            );
+        }
+    );
+
+
+    attachmentZone.addEventListener(
+        "drop",
+        function (event) {
+
+            event.preventDefault();
+
+            attachmentZone.classList.remove(
+                "drag-active"
+            );
+
+            const file =
+                event.dataTransfer.files[0];
+
+            if (!file) {
+                return;
+            }
+
+            processAttachment(file);
+        }
+    );
+
+
+    /* -----------------------------------------
+       Save draft
+       ----------------------------------------- */
+
+    saveDraft.addEventListener(
+        "click",
+        function () {
+
+            const recipientValue =
+                recipient.value.trim();
+
+            if (!recipientValue) {
+
+                alert(
+                    "Enter at least the recipient before saving the draft."
+                );
+
+                recipient.focus();
+                return;
+            }
+
+            alert(
+                "Chalani draft saved locally for this UI prototype."
+            );
+        }
+    );
+
+
+    /* -----------------------------------------
+       Cancel
+       ----------------------------------------- */
+
+    cancelButton.addEventListener(
+        "click",
+        function () {
+
+            const confirmed =
+                confirm(
+                    "Discard the current Chalani entry?"
+                );
+
+            if (confirmed) {
+                window.location.href =
+                    "/portal/";
+            }
+        }
+    );
+
+
+    /* -----------------------------------------
+       Register & Dispatch
+       ----------------------------------------- */
+
+    chalaniForm.addEventListener(
+        "submit",
+        function (event) {
+
+            event.preventDefault();
+
+            if (!chalaniForm.checkValidity()) {
+
+                chalaniForm.reportValidity();
+                return;
+            }
+
+            const fileSelected =
+                attachmentInput.files.length > 0;
+
+            if (!fileSelected) {
+
+                const proceed =
+                    confirm(
+                        "No document attachment has been selected. Continue with registration?"
+                    );
+
+                if (!proceed) {
+                    return;
+                }
+            }
+
+            alert(
+                "Chalani " +
+                chalaniNumber.textContent +
+                " is ready for registration and dispatch."
+            );
+        }
+    );
+
+
+    /* -----------------------------------------
+       Initial preview
+       ----------------------------------------- */
+
+    updateRecipientPreview();
+    updateSubjectPreview();
+    updatePriorityPreview();
+
+});
