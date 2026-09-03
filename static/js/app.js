@@ -1487,3 +1487,590 @@ document.addEventListener("DOMContentLoaded", function () {
     updatePriorityPreview();
 
 });
+
+/* =========================================================
+   DARTALINK - FRONTEND VALIDATION & IMAGE PREVIEW
+   September 3, 2026
+   ========================================================= */
+
+
+/* =========================================================
+   DARTA - IMAGE PREVIEW & METADATA VALIDATION
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const dartaForm = document.getElementById("dartaEntryForm");
+
+    if (!dartaForm) {
+        return;
+    }
+
+    /* -----------------------------------------
+       Optional document image input
+       ----------------------------------------- */
+
+    const dartaDocumentInput =
+        document.getElementById("documentPhoto");
+
+    const dartaImagePreview =
+        document.getElementById("photoPreview");
+
+    const dartaCaptureStatus =
+        document.getElementById("captureStatus");
+
+
+    if (dartaDocumentInput) {
+
+        dartaDocumentInput.addEventListener("change", function () {
+
+            const file = this.files[0];
+
+            if (!file) {
+                return;
+            }
+
+            /* Validate image type */
+
+            if (!file.type.startsWith("image/")) {
+
+                alert(
+                    "Please select a valid image file."
+                );
+
+                this.value = "";
+                return;
+            }
+
+
+            /* Validate file size */
+
+            const maxSize =
+                10 * 1024 * 1024;
+
+            if (file.size > maxSize) {
+
+                alert(
+                    "The selected image must be smaller than 10 MB."
+                );
+
+                this.value = "";
+                return;
+            }
+
+
+            /* Preview image */
+
+            if (dartaImagePreview) {
+
+                const reader =
+                    new FileReader();
+
+                reader.onload = function (event) {
+
+                    dartaImagePreview.src =
+                        event.target.result;
+
+                    dartaImagePreview.classList.remove(
+                        "hidden"
+                    );
+
+                };
+
+                reader.readAsDataURL(file);
+            }
+
+
+            if (dartaCaptureStatus) {
+
+                dartaCaptureStatus.textContent =
+                    `Photo selected: ${file.name}`;
+
+            }
+
+        });
+
+    }
+
+
+    /* -----------------------------------------
+       Darta metadata validation
+       ----------------------------------------- */
+
+    function validateDartaMetadata() {
+
+        const sender =
+            document.getElementById("sender");
+
+        const subject =
+            document.getElementById("subject");
+
+        const reference =
+            document.getElementById("referenceNumber");
+
+        const letterDate =
+            document.getElementById("letterDate");
+
+        const urgency =
+            document.getElementById("urgency");
+
+        const branch =
+            document.getElementById("receivingBranch");
+
+
+        const fields = [
+            {
+                element: sender,
+                message: "Please enter the sender name."
+            },
+            {
+                element: subject,
+                message: "Please enter the document subject."
+            },
+            {
+                element: letterDate,
+                message: "Please select the letter date."
+            },
+            {
+                element: urgency,
+                message: "Please select the urgency level."
+            },
+            {
+                element: branch,
+                message: "Please select the receiving branch."
+            }
+        ];
+
+
+        for (const field of fields) {
+
+            if (
+                !field.element ||
+                !field.element.value.trim()
+            ) {
+
+                alert(field.message);
+
+                if (field.element) {
+                    field.element.focus();
+                }
+
+                return false;
+            }
+
+        }
+
+
+        /* Sender length */
+
+        if (sender.value.trim().length < 2) {
+
+            alert(
+                "Sender name must contain at least 2 characters."
+            );
+
+            sender.focus();
+            return false;
+        }
+
+
+        /* Subject length */
+
+        if (subject.value.trim().length < 3) {
+
+            alert(
+                "Subject must contain at least 3 characters."
+            );
+
+            subject.focus();
+            return false;
+        }
+
+
+        /* Reference number validation */
+
+        if (reference && reference.value.trim()) {
+
+            const referencePattern =
+                /^[A-Za-z0-9\/._-]+$/;
+
+            if (!referencePattern.test(
+                reference.value.trim()
+            )) {
+
+                alert(
+                    "Reference number contains invalid characters."
+                );
+
+                reference.focus();
+                return false;
+            }
+
+        }
+
+
+        return true;
+    }
+
+
+    /* -----------------------------------------
+       Darta form submission
+       ----------------------------------------- */
+
+    dartaForm.addEventListener(
+        "submit",
+        function (event) {
+
+            event.preventDefault();
+
+
+            if (!validateDartaMetadata()) {
+                return;
+            }
+
+
+            updateDartaPreview();
+
+
+            alert(
+                "Darta information has passed frontend validation and is ready for the next workflow step."
+            );
+
+        }
+    );
+
+});
+
+
+/* =========================================================
+   CHALANI - IMAGE PREVIEW & METADATA VALIDATION
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const chalaniForm =
+        document.getElementById("chalaniForm");
+
+    if (!chalaniForm) {
+        return;
+    }
+
+
+    const attachmentInput =
+        document.getElementById("documentAttachment");
+
+    const attachmentPreview =
+        document.getElementById("attachmentPreview");
+
+    const attachmentName =
+        document.getElementById("attachmentName");
+
+    const attachmentSize =
+        document.getElementById("attachmentSize");
+
+    const attachmentZone =
+        document.getElementById("attachmentZone");
+
+
+    /* -----------------------------------------
+       Image preview for attachments
+       ----------------------------------------- */
+
+    function previewChalaniAttachment(file) {
+
+        if (!file) {
+            return;
+        }
+
+
+        /* Only preview images */
+
+        if (!file.type.startsWith("image/")) {
+            return;
+        }
+
+
+        const reader =
+            new FileReader();
+
+
+        reader.onload =
+            function (event) {
+
+                if (!attachmentPreview) {
+                    return;
+                }
+
+
+                /*
+                 * If the existing attachment preview
+                 * contains an image element, use it.
+                 */
+
+                const previewImage =
+                    attachmentPreview.querySelector(
+                        "img"
+                    );
+
+
+                if (previewImage) {
+
+                    previewImage.src =
+                        event.target.result;
+
+                    previewImage.style.display =
+                        "block";
+
+                }
+
+            };
+
+
+        reader.readAsDataURL(file);
+    }
+
+
+    /* -----------------------------------------
+       Attachment validation
+       ----------------------------------------- */
+
+    function validateChalaniAttachment() {
+
+        if (!attachmentInput) {
+            return true;
+        }
+
+
+        const file =
+            attachmentInput.files[0];
+
+
+        if (!file) {
+            return true;
+        }
+
+
+        const allowedTypes = [
+            "application/pdf",
+            "image/jpeg",
+            "image/png"
+        ];
+
+
+        const maxSize =
+            10 * 1024 * 1024;
+
+
+        if (!allowedTypes.includes(file.type)) {
+
+            alert(
+                "Only PDF, JPG and PNG files are allowed."
+            );
+
+            attachmentInput.value = "";
+
+            if (attachmentPreview) {
+                attachmentPreview.hidden = true;
+            }
+
+            if (attachmentZone) {
+                attachmentZone.style.display = "";
+            }
+
+            return false;
+        }
+
+
+        if (file.size > maxSize) {
+
+            alert(
+                "The attachment must be smaller than 10 MB."
+            );
+
+            attachmentInput.value = "";
+
+            if (attachmentPreview) {
+                attachmentPreview.hidden = true;
+            }
+
+            if (attachmentZone) {
+                attachmentZone.style.display = "";
+            }
+
+            return false;
+        }
+
+
+        return true;
+    }
+
+
+    /* -----------------------------------------
+       File selection
+       ----------------------------------------- */
+
+    if (attachmentInput) {
+
+        attachmentInput.addEventListener(
+            "change",
+            function () {
+
+                const file =
+                    this.files[0];
+
+
+                if (!file) {
+                    return;
+                }
+
+
+                if (!validateChalaniAttachment()) {
+                    return;
+                }
+
+
+                /* Show image preview */
+
+                previewChalaniAttachment(file);
+
+
+                if (attachmentName) {
+
+                    attachmentName.textContent =
+                        file.name;
+
+                }
+
+
+                if (attachmentSize) {
+
+                    attachmentSize.textContent =
+                        formatFileSize(
+                            file.size
+                        );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* -----------------------------------------
+       Chalani metadata validation
+       ----------------------------------------- */
+
+    function validateChalaniMetadata() {
+
+        const recipient =
+            document.getElementById("recipient");
+
+        const subject =
+            document.getElementById("subject");
+
+        const dispatchDate =
+            document.getElementById("dispatchDate");
+
+        const priority =
+            document.getElementById("priority");
+
+
+        const fields = [
+            {
+                element: recipient,
+                message:
+                    "Please enter the recipient."
+            },
+            {
+                element: subject,
+                message:
+                    "Please enter the document subject."
+            },
+            {
+                element: dispatchDate,
+                message:
+                    "Please select the dispatch date."
+            },
+            {
+                element: priority,
+                message:
+                    "Please select the priority."
+            }
+        ];
+
+
+        for (const field of fields) {
+
+            if (
+                !field.element ||
+                !field.element.value.trim()
+            ) {
+
+                alert(field.message);
+
+                if (field.element) {
+                    field.element.focus();
+                }
+
+                return false;
+            }
+
+        }
+
+
+        if (recipient.value.trim().length < 2) {
+
+            alert(
+                "Recipient name must contain at least 2 characters."
+            );
+
+            recipient.focus();
+            return false;
+        }
+
+
+        if (subject.value.trim().length < 3) {
+
+            alert(
+                "Subject must contain at least 3 characters."
+            );
+
+            subject.focus();
+            return false;
+        }
+
+
+        return true;
+    }
+
+
+    /* -----------------------------------------
+       Replace submit validation
+       ----------------------------------------- */
+
+    chalaniForm.addEventListener(
+        "submit",
+        function (event) {
+
+            event.preventDefault();
+
+
+            if (!validateChalaniMetadata()) {
+                return;
+            }
+
+
+            if (!validateChalaniAttachment()) {
+                return;
+            }
+
+
+            alert(
+                "Chalani information and attachment have passed frontend validation and are ready for registration."
+            );
+
+        }
+    );
+
+});
