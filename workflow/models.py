@@ -89,7 +89,11 @@ class Document(models.Model):
 
 
 class DartaEntry(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
 
     document = models.OneToOneField(
         Document,
@@ -106,6 +110,12 @@ class DartaEntry(models.Model):
         max_length=255
     )
 
+    reference_number = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True
+    )
+
     received_date = models.DateField()
 
     urgency = models.CharField(
@@ -117,6 +127,19 @@ class DartaEntry(models.Model):
         ],
         default='NORMAL'
     )
+
+    receiving_branch = models.CharField(
+        max_length=50,
+        choices=Department.choices,
+        default=Department.DARTA_CHALANI
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    def __str__(self):
+        return f"{self.darta_number} - {self.sender_organization}"
 
 
 class ChalaniEntry(models.Model):
@@ -257,3 +280,7 @@ class WorkflowLog(models.Model):
     timestamp = models.DateTimeField(
         auto_now_add=True
     )
+
+
+
+    
