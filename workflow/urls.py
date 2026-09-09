@@ -6,25 +6,46 @@ from .views import (
     camera_capture_view,
     darta_entry_view,
     chalani_entry_view,
+    create_darta_api,
 )
 
 
 urlpatterns = [
-    path("login/", login_view, name="login"),
-    path("portal/", portal_view, name="portal"),
+    # Page routes
+    path(
+        "login/",
+        login_view,
+        name="login"
+    ),
+
+    path(
+        "portal/",
+        portal_view,
+        name="portal"
+    ),
+
     path(
         "camera-capture/",
         camera_capture_view,
         name="camera_capture"
     ),
+
     path(
         "darta-entry/",
         darta_entry_view,
         name="darta_entry"
     ),
+
     path(
         "chalani-entry/",
         chalani_entry_view,
         name="chalani_entry"
+    ),
+
+    # Darta API
+    path(
+        "api/darta/create/",
+        create_darta_api,
+        name="create_darta_api"
     ),
 ]
