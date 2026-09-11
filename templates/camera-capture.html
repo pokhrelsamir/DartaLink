@@ -73,10 +73,12 @@
 
                 <div>
                     <span class="page-kicker">DARTA / CHALANI</span>
+
                     <h1>Capture Physical Document</h1>
+
                     <p>
                         Capture a clear image of the incoming physical letter
-                        for digital registration.
+                        for digital registration and cloud storage.
                     </p>
                 </div>
 
@@ -122,6 +124,7 @@
 
                         <div>
                             <h2>Document Camera</h2>
+
                             <p>
                                 Position the complete document inside the frame.
                             </p>
@@ -274,6 +277,42 @@
                     </div>
 
 
+                    <!-- Cloud Storage Status -->
+                    <div
+                        class="capture-info-card storage-card"
+                        id="storageStatusCard"
+                        data-storage-status="ready">
+
+                        <div class="info-card-icon">
+                            ☁
+                        </div>
+
+                        <h3>Cloud Storage</h3>
+
+                        <p id="storageStatusText">
+                            Captured document will be uploaded to cloud
+                            storage during registration.
+                        </p>
+
+                        <div
+                            id="storageUploadStatus"
+                            class="storage-upload-status">
+
+                            <span class="storage-status-indicator"></span>
+
+                            <strong id="storageStatusLabel">
+                                Ready for Upload
+                            </strong>
+
+                        </div>
+
+                        <small id="storageFileName">
+                            No document uploaded yet.
+                        </small>
+
+                    </div>
+
+
                     <div class="capture-info-card security-card">
 
                         <div class="info-card-icon">
@@ -302,12 +341,15 @@
                 <div class="captured-header">
 
                     <div>
-                        <span class="page-kicker">CAPTURE COMPLETE</span>
+                        <span class="page-kicker">
+                            CAPTURE COMPLETE
+                        </span>
 
                         <h2>Review Captured Document</h2>
 
                         <p>
-                            Check the image before continuing.
+                            Check the image before continuing to registration
+                            and cloud storage upload.
                         </p>
                     </div>
 
@@ -334,7 +376,9 @@
 
                         <div class="detail-row">
                             <span>Status</span>
-                            <strong>Ready for Review</strong>
+                            <strong id="captureReviewStatus">
+                                Ready for Review
+                            </strong>
                         </div>
 
                         <div class="detail-row">
@@ -350,8 +394,42 @@
                         </div>
 
                         <div class="detail-row">
+                            <span>Storage</span>
+                            <strong id="captureStorageStatus">
+                                Pending Upload
+                            </strong>
+                        </div>
+
+                        <div class="detail-row">
                             <span>Processing</span>
-                            <strong>Pending Registration</strong>
+                            <strong>
+                                Pending Registration
+                            </strong>
+                        </div>
+
+
+                        <!-- Upload Status -->
+                        <div
+                            id="captureUploadMessage"
+                            class="capture-upload-message"
+                            role="status"
+                            aria-live="polite">
+
+                            <span class="upload-message-icon">
+                                ☁
+                            </span>
+
+                            <div>
+                                <strong id="captureUploadTitle">
+                                    Ready for Cloud Upload
+                                </strong>
+
+                                <p id="captureUploadText">
+                                    The document will be uploaded when
+                                    registration continues.
+                                </p>
+                            </div>
+
                         </div>
 
 

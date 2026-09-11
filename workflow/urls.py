@@ -7,6 +7,7 @@ from .views import (
     darta_entry_view,
     chalani_entry_view,
     create_darta_api,
+    upload_document_api,
 )
 
 
@@ -47,5 +48,12 @@ urlpatterns = [
         "api/darta/create/",
         create_darta_api,
         name="create_darta_api"
+    ),
+
+    # Document upload API
+    path(
+        "api/documents/upload/",
+        upload_document_api,
+        name="upload_document_api"
     ),
 ]
