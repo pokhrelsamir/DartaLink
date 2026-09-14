@@ -12,7 +12,9 @@ from .views import (
 
 
 urlpatterns = [
+
     # Page routes
+
     path(
         "login/",
         login_view,
@@ -43,14 +45,18 @@ urlpatterns = [
         name="chalani_entry"
     ),
 
+
     # Darta API
+
     path(
         "api/darta/create/",
         create_darta_api,
         name="create_darta_api"
     ),
 
-    # Document upload API
+
+    # Cloud document upload API
+
     path(
         "api/documents/upload/",
         upload_document_api,

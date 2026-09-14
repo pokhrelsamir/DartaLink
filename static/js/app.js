@@ -496,6 +496,32 @@ const continueButton = document.getElementById("continueButton");
 const documentFile = document.getElementById("documentFile");
 const fileName = document.getElementById("fileName");
 const captureMethod = document.getElementById("captureMethod");
+const storageStatusCard =
+    document.getElementById("storageStatusCard");
+
+const storageStatusText =
+    document.getElementById("storageStatusText");
+
+const storageStatusLabel =
+    document.getElementById("storageStatusLabel");
+
+const storageFileName =
+    document.getElementById("storageFileName");
+
+const captureStorageStatus =
+    document.getElementById("captureStorageStatus");
+
+const captureUploadMessage =
+    document.getElementById("captureUploadMessage");
+
+const captureUploadTitle =
+    document.getElementById("captureUploadTitle");
+
+const captureUploadText =
+    document.getElementById("captureUploadText");
+
+let capturedDocumentFile = null;
+let uploadedDocumentUrl = null;
 
 let cameraStream = null;
 
@@ -2074,3 +2100,109 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 });
+
+
+/* -----------------------------------------
+   Storage Status UI
+----------------------------------------- */
+
+function updateStorageStatus(
+    status,
+    message
+) {
+
+    if (storageStatusCard) {
+
+        storageStatusCard.dataset.storageStatus =
+            status;
+    }
+
+
+    if (storageStatusText) {
+
+        storageStatusText.textContent =
+            message;
+    }
+
+
+    if (storageStatusLabel) {
+
+        if (status === "uploading") {
+
+            storageStatusLabel.textContent =
+                "Uploading...";
+
+        } else if (status === "uploaded") {
+
+            storageStatusLabel.textContent =
+                "Uploaded Successfully";
+
+        } else if (status === "error") {
+
+            storageStatusLabel.textContent =
+                "Upload Failed";
+
+        } else {
+
+            storageStatusLabel.textContent =
+                "Ready for Upload";
+        }
+    }
+
+
+    if (captureStorageStatus) {
+
+        if (status === "uploading") {
+
+            captureStorageStatus.textContent =
+                "Uploading";
+
+        } else if (status === "uploaded") {
+
+            captureStorageStatus.textContent =
+                "Uploaded";
+
+        } else if (status === "error") {
+
+            captureStorageStatus.textContent =
+                "Upload Failed";
+
+        } else {
+
+            captureStorageStatus.textContent =
+                "Pending Upload";
+        }
+    }
+
+
+    if (captureUploadTitle) {
+
+        if (status === "uploading") {
+
+            captureUploadTitle.textContent =
+                "Uploading to Cloud";
+
+        } else if (status === "uploaded") {
+
+            captureUploadTitle.textContent =
+                "Cloud Upload Complete";
+
+        } else if (status === "error") {
+
+            captureUploadTitle.textContent =
+                "Cloud Upload Failed";
+
+        } else {
+
+            captureUploadTitle.textContent =
+                "Ready for Cloud Upload";
+        }
+    }
+
+
+    if (captureUploadText) {
+
+        captureUploadText.textContent =
+            message;
+    }
+}
