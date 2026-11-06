@@ -1,0 +1,13 @@
+{% extends "emails/base.html" %}
+{% block content %}
+<div style="font-size:13px;font-weight:bold;letter-spacing:.08em;text-transform:uppercase;color:#0b4f9e;">{{ concerned_office }}</div>
+<h1 style="margin:8px 0 22px;color:#182230;font-size:24px;line-height:1.25;">{{ action }}</h1>
+<p style="margin:0 0 20px;color:#526273;font-size:15px;">{{ summary }}</p>
+<table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;border:1px solid #dce5ef;border-radius:8px;">
+  <tr><td style="padding:11px 14px;color:#687789;width:38%;border-bottom:1px solid #e8eef5;">Request</td><td style="padding:11px 14px;font-weight:bold;border-bottom:1px solid #e8eef5;">{{ request_number }}</td></tr>
+  <tr><td style="padding:11px 14px;color:#687789;border-bottom:1px solid #e8eef5;">Title</td><td style="padding:11px 14px;border-bottom:1px solid #e8eef5;">{{ request_title }}</td></tr>
+  <tr><td style="padding:11px 14px;color:#687789;border-bottom:1px solid #e8eef5;">New status</td><td style="padding:11px 14px;color:#0b4f9e;font-weight:bold;border-bottom:1px solid #e8eef5;">{{ status }}</td></tr>
+  <tr><td style="padding:11px 14px;color:#687789;">Performed by</td><td style="padding:11px 14px;">{{ actor_name }} ({{ actor_staff_id }})</td></tr>
+</table>
+<div style="margin-top:20px;padding:16px 18px;background:#eef5fc;border-left:4px solid #0b4f9e;color:#26384a;font-size:14px;line-height:1.6;"><strong>Next step:</strong> {{ next_step }}</div>
+{% endblock %}

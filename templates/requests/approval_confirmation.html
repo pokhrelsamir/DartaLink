@@ -1,0 +1,36 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Approval confirmation · {{ req.request_number }}</title>
+  <link rel="stylesheet" href="{% static 'css/app.css' %}?v=14">
+</head>
+<body class="confirmation-page">
+  <main class="confirmation-sheet">
+    <header class="confirmation-header">
+      <img src="{% static BRAND_LOGO %}" alt="Nepal Telecom">
+      <div><p class="eyebrow">DartaLink · Digital administrative workflow</p><h1>Approval confirmation</h1><p class="muted">Issued for onward Darta/Chalani processing</p></div>
+      <div class="confirmation-ref"><b>{{ req.request_number }}</b><span>{{ req.darta_number|default:"Darta registration pending" }}</span></div>
+    </header>
+    <section class="confirmation-status"><b>{{ confirmation_status }}</b><span>Approved {{ req.approved_at|date:"d M Y, H:i" }}</span></section>
+    <section class="confirmation-grid">
+      <div><dt>Customer</dt><dd>{{ req.customer_name|default:req.requester.display_name }}</dd></div>
+      <div><dt>Contact</dt><dd>{{ req.customer_contact|default:"Not provided" }}</dd></div>
+      <div><dt>Request</dt><dd>{{ req.title }}</dd></div>
+      <div><dt>Branch / Sakha</dt><dd>{{ req.department.name }}</dd></div>
+      <div><dt>Current stage</dt><dd>{{ confirmation_status }}</dd></div>
+      <div><dt>Amount (NPR)</dt><dd>{{ req.requested_amount|default:"-" }}</dd></div>
+      <div><dt>Required by</dt><dd>{{ req.required_by|date:"d M Y"|default:"-" }}</dd></div>
+    </section>
+    <section class="confirmation-note"><h2>Decision</h2><p>{{ req.decision_remarks|default:"Approved for onward processing." }}</p></section>
+    <section class="signature-grid">
+      <div class="signature"><span class="signature-line"></span><b>{{ req.branch_verified_by.display_name|default:"Sakha Pramukh" }}</b><span>Verifying Sakha / Branch authority{% if req.branch_verified_at %} · {{ req.branch_verified_at|date:"d M Y" }}{% endif %}</span></div>
+      <div class="signature"><span class="signature-line"></span><b>{{ req.approved_by.display_name|default:"Hakim / Office Head" }}</b><span>Approving authority · {{ req.approved_at|date:"d M Y" }}</span></div>
+    </section>
+    <footer class="confirmation-footer"><span>Darta staff: {{ req.intake_by.display_name|default:req.requester.display_name }}</span><span>Chalani: {{ req.chalani_number|default:"To be assigned after dispatch" }}</span></footer>
+    <div class="confirmation-actions"><button class="btn btn-primary" type="button" onclick="window.print()">Print confirmation</button><a class="btn" href="{{ req.get_absolute_url }}">Back to request</a></div>
+  </main>
+</body>
+</html>

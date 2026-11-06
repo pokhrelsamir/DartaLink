@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{% if instance %}Edit user{% else %}New user{% endif %}{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>{% if instance %}Edit {{ instance.staff_id }}{% else %}New user{% endif %}</h1>
+<p>{% if instance %}Staff IDs never change.{% else %}A Staff ID such as NTC-IT-001 is generated from the department code.{% endif %}</p></div></div>
+<form method="post" novalidate>{% csrf_token %}
+<section class="card" style="margin-bottom:20px"><div class="card-head"><h2>Account</h2></div><div class="card-body"><div class="form-grid">
+  {% for f in form %}{% include "partials/field.html" with field=f %}{% endfor %}
+</div>{% if instance %}<p class="help small muted">Leave both password fields blank to keep the current password.</p>{% endif %}</div></section>
+<section class="card"><div class="card-head"><h2>Staff profile</h2></div><div class="card-body"><div class="form-grid">
+  {% for f in pform %}{% include "partials/field.html" with field=f %}{% endfor %}
+</div></div></section>
+<div class="actions" style="margin-top:20px"><button class="btn btn-primary" type="submit">Save user</button><a class="btn" href="{% url 'accounts:user_list' %}">Cancel</a></div>
+</form>
+{% endblock %}

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>DartaLink</title>
+  <style>
+    @media only screen and (max-width: 480px) {
+      .email-shell { width: 100% !important; border-radius: 8px !important; }
+      .email-outer { padding: 12px 8px !important; }
+      .email-header { padding: 16px 18px !important; }
+      .email-logo-cell { width: 100% !important; display: block !important; text-align: center !important; padding: 0 !important; }
+      .email-logo-frame { width: 76px !important; height: 76px !important; margin: 0 auto !important; padding: 8px !important; line-height: 60px !important; overflow: hidden !important; }
+      .email-logo { width: 44px !important; max-width: 44px !important; height: auto !important; object-fit: contain !important; }
+      .desktop-logo { display: none !important; }
+      .mobile-logo { display: inline-block !important; }
+      .email-header-table { display: block !important; width: 100% !important; }
+      .email-header-table tbody, .email-header-table tr { display: block !important; width: 100% !important; }
+      .email-brand-cell { display: block !important; width: 100% !important; padding: 12px 0 0 !important; text-align: center !important; }
+      .email-brand { font-size: 19px !important; }
+      .email-content { padding: 24px 18px !important; }
+      .email-footer { padding: 16px 18px !important; }
+    }
+  </style>
+</head>
+<body style="margin:0;background:#f3f6fa;color:#182230;font-family:Arial,Helvetica,sans-serif;">
+  <div class="email-outer" style="padding:24px 12px;">
+    <table class="email-shell" role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:680px;margin:0 auto;background:#ffffff;border:1px solid #dce5ef;border-radius:12px;overflow:hidden;">
+      <tr>
+        <td class="email-header" style="padding:20px 28px;background:#0b4f9e;border-bottom:5px solid #e3262e;">
+          <table class="email-header-table" role="presentation" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+              <td class="email-logo-cell" width="112" valign="middle" align="left" style="width:112px;">
+                <div class="email-logo-frame" style="width:96px;height:96px;background:#ffffff;border-radius:12px;text-align:center;line-height:96px;">
+                  <img class="email-logo desktop-logo" src="cid:{{ logo_cid }}" width="88" alt="Nepal Telecom" style="display:inline-block;width:88px;max-width:88px;height:auto;vertical-align:middle;">
+                  <img class="email-logo mobile-logo" src="cid:{{ mobile_logo_cid }}" width="88" alt="Nepal Telecom" style="display:none;width:88px;max-width:88px;height:auto;vertical-align:middle;">
+                </div>
+              </td>
+              <td class="email-brand-cell" valign="middle" style="color:#ffffff;padding-left:4px;">
+                <div class="email-brand" style="font-size:22px;font-weight:bold;line-height:1.2;">DartaLink</div>
+                <div style="font-size:12px;line-height:1.5;color:#dcecff;">Request &amp; document workflow</div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td class="email-content" style="padding:30px 28px;">
+          {% block content %}{% endblock %}
+        </td>
+      </tr>
+      <tr>
+        <td class="email-footer" style="padding:18px 28px;background:#f7f9fc;border-top:1px solid #e5ebf2;color:#687789;font-size:12px;line-height:1.6;">
+          This is an automated message from DartaLink. Please sign in to DartaLink to review the complete request and audit trail.
+        </td>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% extends "base.html" %}{% load dl_tags %}
+{% block title %}Notifications{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Notifications</h1><p>Updates on the requests you submit, review and process.</p></div>
+  <form method="post" action="{% url 'notifications:mark_all_read' %}">{% csrf_token %}<input type="hidden" name="next" value="{% url 'notifications:list' %}"><button class="btn" type="submit">{% icon 'check' 15 %} Mark all as read</button></form></div>
+<nav class="tabs" aria-label="Filter"><a href="?"{% if not only_unread %} aria-current="page"{% endif %}>All</a><a href="?filter=unread"{% if only_unread %} aria-current="page"{% endif %}>Unread</a></nav>
+<section class="card">
+  {% for n in page %}
+    <div class="doc" style="padding:14px 20px;{% if not n.is_read %}background:var(--brand-soft);box-shadow:inset 3px 0 0 var(--brand){% endif %}">
+      <div class="info"><b style="white-space:normal">{% if not n.is_read %}<span class="sr-only">Unread: </span>{% endif %}{{ n.title }}</b>
+        <span class="small muted" style="white-space:normal">{{ n.message }} · {{ n.created_at|timesince }} ago</span></div>
+      <a class="btn btn-sm" href="{% url 'notifications:open' n.pk %}">Open</a>
+      {% if not n.is_read %}<form method="post" action="{% url 'notifications:mark_read' n.pk %}">{% csrf_token %}<input type="hidden" name="next" value="{% url 'notifications:list' %}"><button class="btn btn-sm btn-ghost" type="submit">Mark read</button></form>{% endif %}
+    </div>
+  {% empty %}<div class="empty"><b>{% if only_unread %}No unread notifications{% else %}No notifications yet{% endif %}</b>Workflow updates will show up here.</div>{% endfor %}
+  {% include "partials/pagination.html" %}
+</section>
+{% endblock %}

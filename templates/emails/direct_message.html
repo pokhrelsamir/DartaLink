@@ -1,0 +1,7 @@
+{% extends "emails/base.html" %}
+{% block content %}
+<div style="font-size:13px;font-weight:bold;letter-spacing:.08em;text-transform:uppercase;color:#0b4f9e;">New message</div>
+<h1 style="margin:8px 0 22px;color:#182230;font-size:24px;line-height:1.25;">{{ message_subject }}</h1>
+<p style="margin:0 0 18px;color:#526273;font-size:15px;">From <strong>{{ sender_name }}</strong> ({{ sender_staff_id }})</p>
+<div style="padding:18px 20px;background:#f7f9fc;border-left:4px solid #0b4f9e;color:#26384a;font-size:15px;line-height:1.65;">{{ message_body|linebreaksbr }}</div>
+{% endblock %}

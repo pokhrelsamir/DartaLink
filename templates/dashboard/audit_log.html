@@ -1,0 +1,24 @@
+{% extends "base.html" %}{% load dl_tags %}
+{% block title %}Audit log{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Audit log</h1><p>Every workflow action across the system, newest first.</p></div></div>
+<section class="card">
+  <form class="filters" method="get">
+    <div class="field"><label for="q">Search</label><input id="q" type="search" name="q" value="{{ q }}" placeholder="Request no., staff ID, remarks"></div>
+    <div class="field"><label for="action">Action</label><select id="action" name="action"><option value="">All actions</option>
+      {% for k in action_keys %}<option value="{{ k }}"{% if k == act %} selected{% endif %}>{{ k|action_label }}</option>{% endfor %}</select></div>
+    <div class="actions"><button class="btn btn-primary" type="submit">Filter</button><a class="btn" href="{% url 'workflow:audit' %}">Reset</a></div>
+  </form>
+  <div class="table-wrap"><table>
+    <thead><tr><th>When</th><th>Request</th><th>Action</th><th>By</th><th>Status change</th><th>Remarks</th></tr></thead>
+    <tbody>{% for l in page %}
+      <tr><td class="small nowrap">{{ l.created_at|date:"Y-m-d H:i" }}</td>
+      <td><a class="mono" href="{{ l.request.get_absolute_url }}">{{ l.request.request_number }}</a></td>
+      <td><span class="badge badge-{{ l.action|action_tone }}">{{ l.action|action_label }}</span></td>
+      <td>{{ l.actor.display_name|default:"-" }}<span class="sub mono" style="display:block">{{ l.actor.staff_id }}</span></td>
+      <td class="small">{{ l.from_status|default:"-" }} → {{ l.to_status|default:"-" }}</td><td class="small">{{ l.remarks|truncatechars:90 }}</td></tr>
+    {% empty %}<tr><td colspan="6"><div class="empty"><b>No log entries match</b></div></td></tr>{% endfor %}</tbody>
+  </table></div>
+  {% include "partials/pagination.html" %}
+</section>
+{% endblock %}

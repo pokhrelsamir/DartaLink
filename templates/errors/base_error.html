@@ -1,0 +1,10 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Error{% endblock %} · DartaLink</title><link rel="stylesheet" href="{% static 'css/app.css' %}"></head>
+<body><main class="err-page"><div>
+  <img src="{% static BRAND_LOGO %}" alt="Nepal Telecom">
+  <div class="code">{% block code %}{% endblock %}</div>
+  <h1>{% block heading %}{% endblock %}</h1>
+  <p>{% block text %}{% endblock %}</p>
+  <a class="btn btn-primary" href="/">Go to dashboard</a>
+</div></main></body></html>

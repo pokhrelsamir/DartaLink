@@ -1,0 +1,126 @@
+{% extends "base.html" %}{% load dl_tags %}
+{% block title %}{{ req.request_number }}{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div>
+    <h1>{{ req.title }}</h1>
+    <p><span class="mono">{{ req.request_number }}</span> · {{ req.get_category_display }} · {% status_badge req %} {% priority_badge req %}</p>
+  </div>
+  <div class="actions">
+    {% if req.status == 'APPROVED' or req.status == 'PROCESSING' or req.status == 'DISPATCHED' or req.status == 'COMPLETED' %}<a class="btn" href="{% url 'requests:approval_confirmation' req.pk %}" target="_blank" rel="noopener">Approval confirmation</a>{% endif %}
+    {% if can_edit %}<a class="btn" href="{% url 'requests:edit' req.pk %}">{% icon 'edit' 15 %} Edit</a>{% endif %}
+    {% for a in actions %}
+      <button type="button" class="btn btn-{{ a.style }}" data-modal-open="modal-{{ a.key }}">{{ a.label }}</button>
+    {% endfor %}
+  </div>
+</div>
+
+{% if req.status == 'RETURNED' and last_return %}<div class="banner banner-warn" role="status"><b>Returned for revision:</b> {{ last_return.remarks }}</div>{% endif %}
+{% if req.status == 'REJECTED' %}<div class="banner banner-danger" role="status"><b>Rejected:</b> {{ req.decision_remarks }}</div>{% endif %}
+{% if req.status == 'COMPLETED' %}<div class="banner banner-ok" role="status">This request is complete.</div>{% endif %}
+
+<section class="card" style="margin-bottom:20px"><div class="card-body" aria-label="Progress">
+  <ol class="stepper">{% for s in steps %}<li class="{{ s.state }}"{% if s.state == 'current' %} aria-current="step"{% endif %}>{{ s.label }}</li>{% endfor %}</ol>
+</div></section>
+
+<div class="grid-2">
+  <div class="stack">
+    <section class="card">
+      <div class="card-head"><h2>Request details</h2></div>
+      <div class="card-body">
+        <dl class="kv">
+          <div><dt>{% if req.customer_name %}Customer{% else %}Requester{% endif %}</dt><dd>{% if req.customer_name %}{{ req.customer_name }}{% if req.customer_contact %} <span class="muted">· {{ req.customer_contact }}</span>{% endif %}<span class="small muted request-attribution">Received by {{ req.intake_by.display_name|default:req.requester.display_name }}</span>{% else %}{{ req.requester.display_name }} <span class="muted mono">({{ req.requester.staff_id }})</span>{% endif %}</dd></div>
+          <div><dt>Section</dt><dd>{{ req.department.name }}</dd></div>
+          <div><dt>Currently with</dt><dd>{{ req.current_department.name|default:"-" }}</dd></div>
+          {% if req.requested_amount != None %}<div><dt>Amount (NPR)</dt><dd class="mono">{{ req.requested_amount|floatformat:2 }}</dd></div>{% endif %}
+          {% if req.required_by %}<div><dt>Needed by</dt><dd>{{ req.required_by|date:"d M Y" }}</dd></div>{% endif %}
+          <div><dt>Created</dt><dd>{{ req.created_at|date:"d M Y, H:i" }}</dd></div>
+        </dl>
+        <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
+        <div class="prose">{{ req.description }}</div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><h2>Recommendations, tippani &amp; Tok Aadesh</h2></div>
+      <div class="card-body">
+        {% for n in annotations %}
+          <div class="note k-{{ n.kind }}"><div class="kind">{{ n.get_kind_display }}</div>
+            <div class="prose">{{ n.text }}</div>
+            <div class="small muted" style="margin-top:6px">{{ n.author.display_name|default:"-" }}, {{ n.department.name|default:"" }} · {{ n.created_at|date:"d M Y, H:i" }}</div></div>
+        {% empty %}<div class="empty small">No recommendations or notes have been added yet.</div>{% endfor %}
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><h2>Documents</h2><span class="small muted">{{ documents|length }} file{{ documents|length|pluralize }}</span></div>
+      <div class="card-body">
+        {% for d in documents %}
+          <div class="doc"><span class="ext">{{ d.extension|default:"file" }}</span>
+            <div class="info"><b>{{ d.original_name }}</b><span class="small muted">{{ d.get_kind_display }} · {{ d.size|filesize }} · {{ d.uploaded_by.display_name|default:"-" }} · {{ d.uploaded_at|date:"d M Y" }}</span></div>
+            <div class="doc-actions"><a class="btn btn-sm btn-ghost" href="{% url 'documents:view' d.pk %}" target="_blank" rel="noopener">{% icon 'eye' 14 %} View</a><a class="btn btn-sm" href="{% url 'documents:download' d.pk %}">{% icon 'download' 14 %} Download</a></div>
+            {% if d.deletable %}<form method="post" action="{% url 'documents:delete' d.pk %}" data-confirm="Remove {{ d.original_name }}? This cannot be undone." data-confirm-title="Remove document" data-confirm-tone="danger">{% csrf_token %}<button class="btn btn-sm btn-ghost" type="submit" aria-label="Remove {{ d.original_name }}">{% icon 'trash' 14 %}</button></form>{% endif %}
+          </div>
+        {% empty %}<div class="empty small">No documents attached.</div>{% endfor %}
+        {% if can_upload %}
+        <form method="post" enctype="multipart/form-data" action="{% url 'documents:upload' req.pk %}" style="margin-top:16px;padding-top:16px;border-top:1px solid var(--line)">{% csrf_token %}
+          <div class="form-grid">
+            <div class="field full"><label for="up-files">Add documents</label><input id="up-files" type="file" name="files" multiple required data-filelist="up-out"><div id="up-out"></div></div>
+            <div class="field"><label for="up-kind">Type</label><select id="up-kind" name="kind">{% for v, l in doc_kinds %}<option value="{{ v }}">{{ l }}</option>{% endfor %}</select></div>
+            <div class="field"><label for="up-desc">Description</label><input id="up-desc" type="text" name="description" maxlength="200"></div>
+          </div>
+          <button class="btn" type="submit">{% icon 'upload' 15 %} Upload</button>
+        </form>{% endif %}
+      </div>
+    </section>
+  </div>
+
+  <div class="stack">
+    <section class="card">
+      <div class="card-head"><h2>Registry</h2></div>
+      <div class="card-body"><dl class="kv" style="grid-template-columns:1fr">
+        <div><dt>Darta number</dt><dd class="mono">{{ req.darta_number|default:"Not registered yet" }}</dd></div>
+        {% if req.darta_date %}<div><dt>Darta date</dt><dd>{{ req.darta_date|date:"d M Y" }}</dd></div>{% endif %}
+        <div><dt>Chalani number</dt><dd class="mono">{{ req.chalani_number|default:"Not dispatched yet" }}</dd></div>
+        {% if req.chalani_date %}<div><dt>Chalani date</dt><dd>{{ req.chalani_date|date:"d M Y" }}</dd></div>{% endif %}
+        {% if req.dispatched_to %}<div><dt>Dispatched to</dt><dd>{{ req.dispatched_to }}</dd></div>{% endif %}
+        {% if req.approved_at %}<div><dt>Approved</dt><dd>{{ req.approved_at|date:"d M Y, H:i" }}</dd></div>{% endif %}
+      </dl></div>
+    </section>
+    <section class="card">
+      <div class="card-head"><h2>History</h2></div>
+      <div class="card-body"><ul class="timeline">
+        {% for l in logs %}
+          <li class="t-{{ l.action|action_tone }}"><b>{{ l.action|action_label }}</b>
+            <span class="when">{{ l.actor.display_name|default:"System" }}{% if l.actor %} <span class="mono">({{ l.actor.staff_id }})</span>{% endif %} · {{ l.created_at|date:"d M Y, H:i" }}</span>
+            {% if l.action == 'forward' and l.to_department %}<span class="small">To {{ l.to_department.name }}</span>{% endif %}
+            {% if l.remarks %}<blockquote>{{ l.remarks }}</blockquote>{% endif %}</li>
+        {% endfor %}
+      </ul></div>
+    </section>
+  </div>
+</div>
+
+{% for a in actions %}
+<div class="modal-backdrop" id="modal-{{ a.key }}" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="mt-{{ a.key }}">
+  <form class="modal" method="post" action="{% url 'requests:action' req.pk a.key %}">{% csrf_token %}
+    <div class="modal-head"><h2 id="mt-{{ a.key }}">{{ a.label }}</h2>{% if a.help %}<p class="muted small" style="margin-top:6px">{{ a.help }}</p>{% endif %}</div>
+    <div class="modal-body">
+      {% if 'to_department' in a.fields %}
+        <div class="field"><label for="f-{{ a.key }}-dept">Forward to</label>
+          <select id="f-{{ a.key }}-dept" name="to_department" required><option value="">Choose a department…</option>{% for d in a.targets %}<option value="{{ d.pk }}">{{ d.name }}</option>{% endfor %}</select></div>
+      {% endif %}
+      {% if 'dispatched_to' in a.fields %}
+        <div class="field"><label for="f-{{ a.key }}-to">Dispatched to</label><input id="f-{{ a.key }}-to" type="text" name="dispatched_to" maxlength="200" required placeholder="Office or person receiving the letter"></div>
+      {% endif %}
+      {% if a.remarks %}
+        <div class="field"><label for="f-{{ a.key }}-r">{% if a.key == 'reject' or a.key == 'return' %}Reason{% else %}Remarks{% endif %}{% if a.remarks == 'required' %} <span class="muted">*</span>{% else %} <span class="muted">(optional)</span>{% endif %}</label>
+          <textarea id="f-{{ a.key }}-r" name="remarks" rows="4"{% if a.remarks == 'required' %} required{% endif %}></textarea></div>
+      {% endif %}
+    </div>
+    <div class="modal-foot"><button type="button" class="btn" data-modal-close>Cancel</button>
+      <button type="submit" class="btn btn-{% if a.style == 'ghost' %}primary{% else %}{{ a.style }}{% endif %}">{{ a.label }}</button></div>
+  </form>
+</div>
+{% endfor %}
+{% endblock %}

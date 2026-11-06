@@ -1,0 +1,78 @@
+{% load static dl_tags %}<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token }}">
+  <title>{% block title %}DartaLink{% endblock %} · DartaLink</title>
+  <link rel="stylesheet" href="{% static 'css/app.css' %}?v=13">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="app">
+  <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+    <a class="brand" href="{% url 'dashboard:home' %}" aria-label="DartaLink home"><img src="{% static BRAND_LOGO %}" alt="Nepal Telecom"></a>
+    <div class="brand-sub">DartaLink · request &amp; document workflow</div>
+    <nav class="nav">
+      {% for group in nav_groups %}
+        <div class="nav-group">
+          {% if group.title %}<div class="nav-title">{{ group.title }}</div>{% endif %}
+          {% for item in group.items %}
+            <a href="{{ item.url }}"{% if item.active %} aria-current="page"{% endif %}{% if item.external %} target="_blank" rel="noopener"{% endif %}>{% icon item.icon 18 %}<span>{{ item.label }}</span></a>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </nav>
+    <div class="sidebar-foot">{{ request.user.get_role_display }}<br>{{ request.user.department.name|default:"All departments" }}</div>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+
+  <div class="main-col">
+    <header class="topbar">
+      <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="sidebar">{% icon 'menu' 22 %}</button>
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href="{% url 'dashboard:home' %}">Home</a>
+        {% for label, url in breadcrumbs %}
+          <span class="sep" aria-hidden="true">/</span>
+          {% if url %}<a href="{{ url }}">{{ label }}</a>{% else %}<span {% if forloop.last %}aria-current="page"{% endif %}>{{ label }}</span>{% endif %}
+        {% endfor %}
+      </nav>
+      <div class="top-right">
+        <div class="dropdown">
+          <button class="icon-btn" type="button" data-dropdown aria-haspopup="true" aria-expanded="false" aria-label="Notifications">
+            {% icon 'bell' 21 %}<span class="bell-dot" id="bell-badge" data-poll="{% url 'notifications:unread_count' %}"{% if not unread_count %} hidden{% endif %}>{% if unread_count > 99 %}99+{% else %}{{ unread_count }}{% endif %}</span>
+          </button>
+          <div class="menu notif-menu" role="menu">
+            <div class="notif-head"><b>Notifications</b>
+              <button type="button" class="btn btn-sm btn-ghost" id="mark-all-read" data-url="{% url 'notifications:mark_all_read' %}" style="width:auto">Mark all read</button></div>
+            {% for n in recent_notifications %}
+              <a class="notif-item{% if not n.is_read %} unread{% endif %}" href="{% url 'notifications:open' n.pk %}"><b>{{ n.title }}</b><span>{{ n.message }}</span><br><span class="small">{{ n.created_at|timesince }} ago</span></a>
+            {% empty %}
+              <div class="empty small">You're all caught up.</div>
+            {% endfor %}
+            <a href="{% url 'notifications:list' %}" style="justify-content:center;font-weight:500">View all</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="user-chip" type="button" data-dropdown aria-haspopup="true" aria-expanded="false">
+            <span class="avatar" aria-hidden="true">{{ request.user.initials }}</span>
+            <span class="user-meta"><b>{{ request.user.display_name }}</b><span class="mono">{{ request.user.staff_id }}</span></span>
+          </button>
+          <div class="menu" role="menu">
+            <a href="{% url 'accounts:profile' %}">{% icon 'user' 17 %} My profile</a>
+            <a href="{% url 'accounts:password_change' %}">{% icon 'key' 17 %} Change password</a>
+            <hr>
+            <form method="post" action="{% url 'accounts:logout' %}">{% csrf_token %}<button type="submit">{% icon 'logout' 17 %} Sign out</button></form>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main class="content" id="main" tabindex="-1">
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+</div>
+{% include "partials/toasts.html" %}
+{% block scripts %}{% endblock %}
+</body>
+</html>

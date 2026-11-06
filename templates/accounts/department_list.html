@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% load dl_tags %}
+{% block title %}Departments{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Departments</h1><p>Offices and sections. The code becomes the prefix of Staff IDs.</p></div><a class="btn btn-primary" href="{% url 'accounts:department_create' %}">{% icon 'plus' 16 %} New department</a></div>
+<section class="card"><div class="table-wrap"><table>
+  <thead><tr><th>Code</th><th>Name</th><th>Type</th><th>Staff</th><th>Status</th><th></th></tr></thead>
+  <tbody>{% for d in departments %}
+    <tr><td class="mono"><b>{{ d.code }}</b></td><td>{{ d.name }}<span class="sub">{{ d.name_np }}</span></td>
+    <td>{% if d.is_registry %}Registry{% elif d.is_authority %}Review authority{% else %}Section{% endif %}</td><td>{{ d.members.count }}</td>
+    <td>{% if d.is_active %}<span class="badge badge-ok">Active</span>{% else %}<span class="badge badge-neutral">Inactive</span>{% endif %}</td>
+    <td><a class="btn btn-sm" href="{% url 'accounts:department_edit' d.pk %}">Edit</a></td></tr>
+  {% endfor %}</tbody></table></div></section>
+{% endblock %}

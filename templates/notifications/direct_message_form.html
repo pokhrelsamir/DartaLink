@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Send message{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Send message</h1><p>Contact one or more employees about a system issue, request, or operational update.</p></div></div>
+<form method="post" novalidate>
+  {% csrf_token %}
+  <section class="card"><div class="card-head"><h2>Message</h2></div><div class="card-body"><div class="form-grid">
+    {% include "partials/field.html" with field=form.subject %}
+    {% include "partials/field.html" with field=form.body %}
+  </div></div></section>
+  <section class="card" style="margin-top:20px"><div class="card-head"><h2>Department selection</h2></div><div class="card-body"><div class="form-grid">
+    {% include "partials/field.html" with field=form.department %}
+    {% include "partials/field.html" with field=form.recipient_mode %}
+  </div></div></section>
+  <section class="card" id="employee-selection" style="margin-top:20px"><div class="card-head"><h2>Employee selection</h2></div><div class="card-body">
+    <div class="field{% if form.recipients.errors %} has-error{% endif %}">
+      {{ form.recipients.label_tag }}
+      <select name="recipients" id="id_recipients" multiple size="8"{% if form.recipients.field.disabled %} disabled{% endif %}>
+        {% for employee in form.recipients.field.queryset %}
+          <option value="{{ employee.pk }}" data-department="{{ employee.department_id }}"{% if employee in form.recipients.value %} selected{% endif %}>{{ employee.display_name }} · {{ employee.staff_id }}{% if employee.department %} · {{ employee.department.name }}{% endif %}</option>
+        {% endfor %}
+      </select>
+      {% if form.recipients.help_text %}<div class="help">{{ form.recipients.help_text }}</div>{% endif %}
+      {% for error in form.recipients.errors %}<div class="err" role="alert">{{ error }}</div>{% endfor %}
+    </div>
+  </div></section>
+  <div class="actions" style="margin-top:20px">
+    <button class="btn btn-primary" type="submit">Send message</button>
+    <a class="btn" href="{% url 'notifications:list' %}">Cancel</a>
+  </div>
+</form>
+<script>
+  (function () {
+    var department = document.getElementById('id_department');
+    var mode = document.querySelectorAll('input[name="recipient_mode"]');
+    var employees = document.getElementById('id_recipients');
+    var options = Array.prototype.slice.call(employees.options);
+    function update() {
+      var selectedDepartment = department.value;
+      var individual = Array.prototype.some.call(mode, function (item) { return item.checked && item.value === 'individual'; });
+      employees.disabled = !individual;
+      options.forEach(function (option) {
+        var visible = option.dataset.department === selectedDepartment;
+        option.hidden = !visible;
+        if (!visible) option.selected = false;
+      });
+      document.getElementById('employee-selection').hidden = !individual;
+    }
+    department.addEventListener('change', update);
+    Array.prototype.forEach.call(mode, function (item) { item.addEventListener('change', update); });
+    update();
+  }());
+</script>
+{% endblock %}

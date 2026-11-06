@@ -1,0 +1,85 @@
+DartaLink Network Telemetry Reference Blueprint
+===============================================
+
+Apply and review these commands with the Nepal Telecom network/security team.
+Replace interface names, secrets, IP addresses, and SNMP usernames for the
+production topology. Do not paste secrets into source control.
+
+1. VLAN segmentation
+--------------------
+! Staff clients
+vlan 10
+ name DARTALINK-STAFF
+
+! Server farm
+vlan 99
+ name DARTALINK-SERVERS
+
+interface GigabitEthernet0/1
+ description DartaLink staff access
+ switchport mode access
+ switchport access vlan 10
+ spanning-tree portfast
+
+interface GigabitEthernet0/24
+ description Trunk to router/L3 switch
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,99
+
+2. Inter-VLAN routing (router-on-a-stick example)
+-------------------------------------------------
+interface GigabitEthernet0/0
+ no shutdown
+
+interface GigabitEthernet0/0.10
+ encapsulation dot1Q 10
+ ip address 192.168.10.1 255.255.255.0
+
+interface GigabitEthernet0/0.99
+ encapsulation dot1Q 99
+ ip address 172.16.10.1 255.255.255.0
+
+3. ACL baseline
+----------------
+! Permit staff access to the application server farm only as required.
+! Add explicit service ports approved by the security team.
+ip access-list extended DARTALINK-STAFF-IN
+ permit tcp 192.168.10.0 0.0.0.255 172.16.10.0 0.0.0.255 eq 443
+ permit udp 192.168.10.0 0.0.0.255 host 172.16.10.1 eq 514
+ deny ip any 172.16.10.0 0.0.0.255 log
+ permit ip any any
+
+interface GigabitEthernet0/0.10
+ ip access-group DARTALINK-STAFF-IN in
+
+4. Cisco syslog export
+-----------------------
+logging host <DARTALINK-SYSLOG-SERVER-IP> transport udp port 514
+logging trap informational
+logging facility local7
+service timestamps log datetime msec localtime show-timezone
+
+5. NTP correlation
+------------------
+clock timezone NPT +5 45
+ntp server <APPROVED-NTP-SERVER-IP> prefer
+ntp source GigabitEthernet0/0.99
+
+6. SNMPv3 secure polling
+------------------------
+snmp-server view DARTALINK-VIEW iso included
+snmp-server group DARTALINK-MONITOR v3 priv read DARTALINK-VIEW access SNMP-MGMT
+snmp-server user <SNMPV3-USER> DARTALINK-MONITOR v3 auth sha <AUTH-SECRET> priv aes 256 <PRIV-SECRET>
+snmp-server host <MONITORING-SERVER-IP> version 3 priv <SNMPV3-USER>
+
+ip access-list standard SNMP-MGMT
+ permit host <MONITORING-SERVER-IP>
+ deny any log
+
+Operational notes
+-----------------
+* Restrict UDP/514 to the approved syslog collector and monitor dropped logs.
+* Store SNMPv3 secrets in the network secret manager, never in this file.
+* Verify NTP status with "show ntp status" and "show clock".
+* Verify syslog with "show logging" and VLAN/ACL behavior in a maintenance window.

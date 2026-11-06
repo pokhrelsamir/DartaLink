@@ -1,0 +1,45 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in · DartaLink</title><link rel="stylesheet" href="{% static 'css/app.css' %}?v=13"></head>
+<body class="auth-page">
+<div class="auth">
+  <section class="auth-art">
+    <div class="auth-art-top">
+      <span class="plate"><img src="{% static BRAND_LOGO %}" alt="Nepal Telecom"></span>
+      <span class="auth-secure"><span class="secure-dot"></span> Internal workspace</span>
+    </div>
+    <div class="auth-message">
+      <p class="eyebrow">DartaLink · Digital administrative workflow</p>
+      <h1>Requests that find their way.</h1>
+      <p class="auth-lead">Submit, verify, register in Darta, review, decide and dispatch through Chalani — with every step on record.</p>
+      <div class="auth-pillars" aria-label="DartaLink workflow benefits">
+        <span>Clear ownership</span><span>Complete traceability</span><span>Faster decisions</span>
+      </div>
+    </div>
+    <div class="auth-art-footer">
+      <span class="small">Nepal Telecom · Ranipauwa</span>
+      <span class="auth-mark" aria-hidden="true">DL</span>
+    </div>
+  </section>
+  <main class="auth-form">
+    <div class="auth-card">
+      <div class="auth-mobile-brand"><img src="{% static BRAND_LOGO %}" alt="Nepal Telecom"></div>
+      <div class="auth-card-heading">
+        <p class="eyebrow">Welcome back</p>
+        <h2>Sign in to DartaLink</h2>
+        <p class="muted">Use your username or Staff ID <span class="nowrap">(for example NTC-KP-001).</span></p>
+      </div>
+      {% if form.non_field_errors %}<div class="banner banner-danger" role="alert">{{ form.non_field_errors.0 }}</div>{% endif %}
+      <form method="post" novalidate>{% csrf_token %}
+      <input type="hidden" name="next" value="{{ next }}">
+      {% include "partials/field.html" with field=form.username %}
+      {% include "partials/field.html" with field=form.password %}
+      <button class="btn btn-primary auth-submit" type="submit"><span>Sign in securely</span><span class="auth-submit-arrow" aria-hidden="true">→</span></button>
+      </form>
+      <p class="auth-help">Having trouble signing in? Contact your department administrator.</p>
+      <div class="auth-card-foot"><span class="secure-lock" aria-hidden="true">✓</span> Your connection is protected</div>
+    </div>
+  </main>
+</div>
+{% include "partials/toasts.html" %}
+</body></html>

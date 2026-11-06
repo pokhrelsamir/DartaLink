@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}{% if instance %}Edit department{% else %}New department{% endif %}{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>{% if instance %}Edit {{ instance.name }}{% else %}New department{% endif %}</h1></div></div>
+<section class="card" style="max-width:720px"><div class="card-body"><form method="post" novalidate>{% csrf_token %}
+  <div class="form-grid">{% for f in form %}<div{% if f.name == 'description' %} class="full"{% endif %}>{% include "partials/field.html" with field=f %}</div>{% endfor %}</div>
+  <div class="actions"><button class="btn btn-primary" type="submit">Save department</button><a class="btn" href="{% url 'accounts:department_list' %}">Cancel</a></div>
+</form></div></section>
+{% endblock %}

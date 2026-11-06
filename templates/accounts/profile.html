@@ -1,0 +1,25 @@
+{% extends "base.html" %}{% load dl_tags %}
+{% block title %}My profile{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>My profile</h1><p>{% if request.user.is_sysadmin %}Review and manage your administrator account details and access settings.{% else %}Your staff record. Role and department are managed by the administrator.{% endif %}</p></div>
+<a class="btn" href="{% url 'accounts:password_change' %}">Change password</a></div>
+<div class="grid-eq">
+  <section class="card"><div class="card-head"><h2>Identity</h2></div><div class="card-body">
+    <div style="display:flex;gap:16px;align-items:center;margin-bottom:18px"><span class="avatar" style="width:56px;height:56px;font-size:1.1rem">{{ request.user.initials }}</span>
+    <div><b>{{ request.user.display_name }}</b><div class="muted mono">{{ request.user.staff_id }}</div></div></div>
+    <dl class="kv profile-kv" style="grid-template-columns:1fr 1fr"><div><dt>Role</dt><dd>{{ request.user.get_role_display }}</dd></div>
+    <div><dt>Department</dt><dd>{{ request.user.department.name|default:"-" }}</dd></div><div><dt>Username</dt><dd>{{ request.user.username }}</dd></div>
+    <div><dt>Joined DartaLink</dt><dd>{{ request.user.date_joined|date:"d M Y" }}</dd></div></dl></div></section>
+  <section class="card"><div class="card-head"><h2>Personal Details</h2>{% if request.user.is_sysadmin %}<a class="btn btn-sm" href="{% url 'accounts:user_edit' request.user.pk %}">{% icon 'edit' 14 %} Edit</a>{% endif %}</div><div class="card-body">
+    {% if not request.user.is_sysadmin %}<p class="muted">Your staff details are maintained by the administrator. Contact Administration if anything is incorrect.</p>{% endif %}
+    <dl class="kv profile-kv" style="grid-template-columns:1fr 1fr">
+      <div><dt>Full name</dt><dd>{{ request.user.get_full_name|default:"-" }}</dd></div>
+      <div><dt>Email</dt><dd>{{ request.user.email|default:"-" }}</dd></div>
+      <div><dt>Designation</dt><dd>{{ request.user.profile.designation|default:"-" }}</dd></div>
+      <div><dt>Phone</dt><dd>{{ request.user.profile.phone|default:"-" }}</dd></div>
+      <div><dt>Office location</dt><dd>{{ request.user.profile.office_location|default:"-" }}</dd></div>
+      <div><dt>Employment</dt><dd>{{ request.user.profile.get_employment_type_display }}</dd></div>
+    </dl>
+  </div></section>
+</div>
+{% endblock %}

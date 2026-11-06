@@ -1,0 +1,55 @@
+{% extends "base.html" %}{% load dl_tags %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><h1>Good to see you, {{ request.user.first_name|default:request.user.username }}</h1>
+  <p>{{ request.user.get_role_display }} · {{ request.user.department.name|default:"All departments" }} · <span class="mono">{{ request.user.staff_id }}</span></p></div>
+</div>
+
+<section class="stats" aria-label="Key figures">
+  {% for c in cards %}
+    {% if c.url %}<a class="stat t-{{ c.tone }}" href="{{ c.url }}">{% else %}<div class="stat t-{{ c.tone }}">{% endif %}
+      <div class="v">{{ c.value }}</div><div class="l">{{ c.label }}{% if c.hint %} · {{ c.hint }}{% endif %}</div>
+    {% if c.url %}</a>{% else %}</div>{% endif %}
+  {% endfor %}
+</section>
+
+<div class="quick" aria-label="Quick actions">
+  {% for label, url, ic in quick %}<a class="btn {% if forloop.first %}btn-primary{% endif %}" href="{{ url }}">{% icon ic 16 %} {{ label }}</a>{% endfor %}
+</div>
+
+<div class="grid-2">
+  <div class="stack">
+    {% if queue is not None %}
+    <section class="card">
+      <div class="card-head"><h2>Needs your action</h2><a class="small" href="{% url 'requests:list' %}?scope=action">See all</a></div>
+      {% if queue %}
+      <div class="table-wrap"><table>
+        <thead><tr><th>Request</th><th>Stage</th><th>Updated</th></tr></thead>
+        <tbody>{% for r in queue %}
+          <tr><td><a class="title" href="{{ r.get_absolute_url }}">{{ r.title }}</a><span class="sub mono">{{ r.request_number }}</span></td>
+          <td>{% status_badge r %}</td><td class="small muted nowrap">{{ r.updated_at|timesince }} ago</td></tr>
+        {% endfor %}</tbody></table></div>
+      {% else %}<div class="empty"><b>Nothing waiting on you</b>New items will appear here as soon as they reach your desk.</div>{% endif %}
+    </section>
+    {% endif %}
+    <section class="card">
+      <div class="card-head"><h2>Recent activity</h2></div>
+      <div class="card-body">
+        {% if recent %}<ul class="timeline">{% for log in recent %}
+          <li class="t-{{ log.action|action_tone }}"><b>{{ log.action|action_label }} · <a href="{{ log.request.get_absolute_url }}">{{ log.request.request_number }}</a></b>
+          <span class="when">{{ log.actor.display_name|default:"System" }} · {{ log.created_at|timesince }} ago</span></li>
+        {% endfor %}</ul>{% else %}<div class="empty"><b>No activity yet</b>Actions on requests you can see will be listed here.</div>{% endif %}
+      </div>
+    </section>
+  </div>
+  <section class="card">
+    <div class="card-head"><h2>Requests by status</h2></div>
+    <div class="card-body">
+      {% for d in distribution %}
+        <div class="bar-row"><a href="{% url 'requests:list' %}?status={{ d.key }}">{{ d.label }}</a><div class="bar" role="img" aria-label="{{ d.n }}"><i style="width:{{ d.pct }}%"></i></div><span class="mono">{{ d.n }}</span></div>
+      {% empty %}<div class="empty"><b>No requests yet</b></div>{% endfor %}
+    </div>
+  </section>
+</div>
+{% endblock %}

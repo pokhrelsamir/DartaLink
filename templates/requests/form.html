@@ -1,0 +1,29 @@
+{% extends "base.html" %}{% load dl_tags %}
+{% block title %}{% if mode == 'edit' %}Edit request{% else %}New request{% endif %}{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>{% if mode == 'edit' %}Edit {{ req.request_number }}{% else %}New request{% endif %}</h1>
+<p>{% if mode == 'edit' %}You can edit while the request is a draft or returned to you.{% else %}Save a draft now, or submit it straight away for verification by your section Pramukh.{% endif %}</p></div></div>
+<form method="post" enctype="multipart/form-data">{% csrf_token %}
+  <section class="card"><div class="card-body">
+    {% if form.non_field_errors %}<div class="banner banner-danger" role="alert">{{ form.non_field_errors }}</div>{% endif %}
+    <div class="form-grid">
+      <div class="full">{% include "partials/field.html" with field=form.title %}</div>
+      {% if form.department %}{% include "partials/field.html" with field=form.department %}{% endif %}
+      {% if form.customer_name %}{% include "partials/field.html" with field=form.customer_name %}{% include "partials/field.html" with field=form.customer_contact %}{% endif %}
+      {% include "partials/field.html" with field=form.category %}
+      {% include "partials/field.html" with field=form.priority %}
+      <div class="full">{% include "partials/field.html" with field=form.description %}</div>
+      {% include "partials/field.html" with field=form.requested_amount %}
+      {% include "partials/field.html" with field=form.required_by %}
+      <div class="full field"><label for="files">Attachments</label>
+        <input id="files" type="file" name="files" multiple data-filelist="file-out" accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg,.txt,.csv">
+        <div class="help">PDF, Word, Excel, images, text. Up to 10 MB each. You can add more later while the request is editable.</div><div id="file-out"></div></div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary" type="submit" name="submit_now" value="1">{% if mode == 'edit' and req.status == 'RETURNED' %}Save and resubmit{% else %}Save and submit{% endif %}</button>
+      <button class="btn" type="submit" name="save" value="1">Save draft</button>
+      <a class="btn btn-ghost" href="{% if mode == 'edit' %}{{ req.get_absolute_url }}{% else %}{% url 'requests:list' %}{% endif %}">Cancel</a>
+    </div>
+  </div></section>
+</form>
+{% endblock %}

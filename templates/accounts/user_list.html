@@ -1,0 +1,22 @@
+{% extends "base.html" %}{% load dl_tags %}
+{% block title %}Users{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Users</h1><p>Staff accounts and their Staff IDs.</p></div><a class="btn btn-primary" href="{% url 'accounts:user_create' %}">{% icon 'plus' 16 %} New user</a></div>
+<section class="card">
+  <form class="filters" method="get">
+    <div class="field"><label for="q">Search</label><input id="q" type="search" name="q" value="{{ q }}" placeholder="Name, username, Staff ID"></div>
+    <div class="field"><label for="role">Role</label><select id="role" name="role"><option value="">Any</option>{% for v, l in roles %}<option value="{{ v }}"{% if v == role %} selected{% endif %}>{{ l }}</option>{% endfor %}</select></div>
+    <div class="field"><label for="department">Department</label><select id="department" name="department"><option value="">Any</option>{% for d in departments %}<option value="{{ d.pk }}"{% if dept == d.pk|stringformat:"s" %} selected{% endif %}>{{ d.name }}</option>{% endfor %}</select></div>
+    <div class="actions"><button class="btn btn-primary" type="submit">Filter</button><a class="btn" href="{% url 'accounts:user_list' %}">Reset</a></div>
+  </form>
+  <div class="table-wrap"><table class="user-table">
+    <thead><tr><th>Staff ID</th><th>Name</th><th>Role</th><th>Department</th><th>Status</th><th>Actions</th></tr></thead>
+    <tbody>{% for u in page %}
+      <tr><td class="mono"><b>{{ u.staff_id }}</b></td><td><span class="user-name">{{ u.display_name }}</span><span class="sub">{{ u.username }}</span></td><td>{{ u.get_role_display }}</td>
+      <td>{{ u.department.name|default:"-" }}</td><td>{% if u.is_active %}<span class="badge badge-ok">Active</span>{% else %}<span class="badge badge-neutral">Inactive</span>{% endif %}</td>
+      <td class="user-actions-cell"><div class="actions user-actions"><a class="btn btn-sm" href="{% url 'accounts:user_edit' u.pk %}">Edit</a>
+        <form method="post" action="{% url 'accounts:user_toggle' u.pk %}" data-confirm="{% if u.is_active %}Deactivate{% else %}Activate{% endif %} {{ u.staff_id }}?" data-confirm-title="{% if u.is_active %}Deactivate user{% else %}Activate user{% endif %}">{% csrf_token %}<button class="btn btn-sm btn-ghost" type="submit">{% if u.is_active %}Deactivate{% else %}Activate{% endif %}</button></form></div></td></tr>
+    {% empty %}<tr><td colspan="6"><div class="empty"><b>No users match</b></div></td></tr>{% endfor %}</tbody></table></div>
+  {% include "partials/pagination.html" %}
+</section>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static dl_tags %}
+{% block title %}Request report{% endblock %}
+{% block content %}
+<div class="page-head report-toolbar">
+  <div>
+    <p class="eyebrow">System Administrator report</p>
+    <h1>Filtered request report</h1>
+    <p>{{ total }} request{{ total|pluralize }} match the applied filters.</p>
+  </div>
+  <div class="actions no-print">
+    <a class="btn" href="{{ list_url }}">Back to requests</a>
+    <button class="btn" type="button" onclick="window.print()">Print</button>
+    <a class="btn btn-primary" href="{{ pdf_url }}" data-download>Export PDF</a>
+  </div>
+</div>
+<section class="card report-sheet">
+  <div class="report-brand">
+    <span class="report-logo-frame"><img src="{% static 'img/nt-logo.png' %}" alt="Nepal Telecom"></span>
+    <div><h2>DartaLink</h2><p>Administrative Request and Document Workflow</p></div>
+  </div>
+  <div class="report-meta">
+    <span><b>Applied filters:</b> {{ filter_description }}</span>
+    <span><b>Generated:</b> {{ generated_at|date:"d M Y, h:i A" }}</span>
+  </div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Request</th><th>Title</th><th>Requester / Section</th><th>Category</th><th>Priority</th><th>Status</th><th>Created</th></tr></thead>
+    <tbody>{% for r in requests %}
+      <tr>
+        <td><a class="mono" href="{{ r.get_absolute_url }}">{{ r.request_number }}</a></td>
+        <td>{{ r.title }}</td>
+        <td class="report-requester"><span>{{ r.requester.display_name }}</span><span class="sub">{{ r.department.name }}</span></td>
+        <td>{{ r.get_category_display }}</td><td>{{ r.get_priority_display }}</td><td>{% status_badge r %}</td>
+        <td class="nowrap">{{ r.created_at|date:"d M Y" }}</td>
+      </tr>
+    {% empty %}<tr><td colspan="7"><div class="empty"><b>No requests found</b>Try changing the filters.</div></td></tr>{% endfor %}</tbody>
+  </table></div>
+</section>
+{% endblock %}
