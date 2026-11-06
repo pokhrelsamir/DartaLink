@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>DartaLink | Employee Portal</title>
+
+    {% load static %}
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/style.css' %}"
+    >
+
+</head>
+
+
+<body class="portal-page">
+
+
+    <!-- Sidebar -->
+
+    <aside class="portal-sidebar">
+
+        <div class="portal-brand">
+
+            <div class="portal-brand-mark">
+                DL
+            </div>
+
+            <div>
+
+                <strong>
+                    DartaLink
+                </strong>
+
+                <span>
+                    Employee Portal
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="portal-navigation">
+
+            <p class="navigation-label">
+                MAIN
+            </p>
+
+
+            <a
+                href="#"
+                class="navigation-item active"
+            >
+
+                <span class="navigation-icon">
+                    ▦
+                </span>
+
+                Dashboard
+
+            </a>
+
+
+            <a
+                href="/darta-entry/"
+                class="navigation-item"
+            >
+
+                <span class="navigation-icon">
+                    +
+                </span>
+
+                Darta / Chalani
+
+            </a>
+
+
+            <a
+                href="/approval-dashboard/"
+                class="navigation-item"
+            >
+
+                <span class="navigation-icon">
+                    ✓
+                </span>
+
+                Approval Queue
+
+            </a>
+
+
+            <p class="navigation-label">
+                BRANCHES
+            </p>
+
+
+            <a
+                href="#"
+                class="navigation-item"
+            >
+
+                <span class="navigation-icon">
+                    T
+                </span>
+
+                Prabidhik Sakha
+
+            </a>
+
+
+            <a
+                href="#"
+                class="navigation-item"
+            >
+
+                <span class="navigation-icon">
+                    L
+                </span>
+
+                Lekha Sakha
+
+            </a>
+
+
+            <a
+                href="#"
+                class="navigation-item"
+            >
+
+                <span class="navigation-icon">
+                    R
+                </span>
+
+                Rajaswa Sakha
+
+            </a>
+
+
+            <a
+                href="#"
+                class="navigation-item"
+            >
+
+                <span class="navigation-icon">
+                    B
+                </span>
+
+                Budget Sakha
+
+            </a>
+
+
+            <a
+                href="#"
+                class="navigation-item"
+            >
+
+                <span class="navigation-icon">
+                    IT
+                </span>
+
+                IT Sakha
+
+            </a>
+
+
+            <p class="navigation-label">
+                SYSTEM
+            </p>
+
+
+            <a
+                href="#"
+                class="navigation-item"
+            >
+
+                <span class="navigation-icon">
+                    ⚙
+                </span>
+
+                Settings
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-footer">
+
+            <span>
+                DartaLink
+            </span>
+
+            <small>
+                Internal Document Workflow
+            </small>
+
+        </div>
+
+    </aside>
+
+
+    <!-- Main Content -->
+
+    <main class="portal-main">
+
+
+        <!-- Top Navigation -->
+
+        <header class="portal-header">
+
+            <div>
+
+                <p class="section-label">
+                    EMPLOYEE WORKSPACE
+                </p>
+
+                <h1>
+                    DartaLink Portal
+                </h1>
+
+            </div>
+
+
+            <div class="portal-user">
+
+                <div class="portal-user-info">
+
+                    <strong>
+                        Samir Employee
+                    </strong>
+
+                    <span>
+                        Darta / Chalani Section
+                    </span>
+
+                </div>
+
+
+                <div class="portal-avatar">
+                    SE
+                </div>
+
+
+                <button
+                    type="button"
+                    id="logoutButton"
+                    class="logout-button"
+                >
+                    Logout
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- Welcome -->
+
+        <section class="portal-welcome">
+
+            <div>
+
+                <p class="section-label">
+                    INTERNAL OFFICE SYSTEM
+                </p>
+
+                <h2>
+                    Welcome to DartaLink
+                </h2>
+
+                <p>
+                    Manage registered documents, branch routing,
+                    approvals and workflow activities from one
+                    centralized workspace.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Quick Access -->
+
+        <section class="portal-section">
+
+            <div class="portal-section-heading">
+
+                <div>
+
+                    <p class="section-label">
+                        QUICK ACCESS
+                    </p>
+
+                    <h3>
+                        Document Workflow
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <div class="portal-cards">
+
+
+                <a
+                    href="/darta-entry/"
+                    class="portal-card"
+                >
+
+                    <div class="portal-card-icon">
+                        +
+                    </div>
+
+                    <h4>
+                        Register Document
+                    </h4>
+
+                    <p>
+                        Register incoming documents
+                        through Darta / Chalani.
+                    </p>
+
+                    <span>
+                        Open →
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="/approval-dashboard/"
+                    class="portal-card"
+                >
+
+                    <div class="portal-card-icon">
+                        ✓
+                    </div>
+
+                    <h4>
+                        Approval Queue
+                    </h4>
+
+                    <p>
+                        Review documents waiting
+                        for executive action.
+                    </p>
+
+                    <span>
+                        Open →
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="#"
+                    class="portal-card"
+                >
+
+                    <div class="portal-card-icon">
+                        ⇢
+                    </div>
+
+                    <h4>
+                        Branch Routing
+                    </h4>
+
+                    <p>
+                        View documents routed
+                        to different branches.
+                    </p>
+
+                    <span>
+                        Open →
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="#"
+                    class="portal-card"
+                >
+
+                    <div class="portal-card-icon">
+                        ⟳
+                    </div>
+
+                    <h4>
+                        Workflow History
+                    </h4>
+
+                    <p>
+                        Track previous document
+                        movement and actions.
+                    </p>
+
+                    <span>
+                        Open →
+                    </span>
+
+                </a>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- Branch Overview -->
+
+        <section class="portal-section">
+
+            <div class="portal-section-heading">
+
+                <div>
+
+                    <p class="section-label">
+                        MULTI-BRANCH WORKSPACE
+                    </p>
+
+                    <h3>
+                        Branch Access
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <div class="branch-grid">
+
+
+                <div class="branch-card">
+
+                    <strong>
+                        Prabidhik Sakha
+                    </strong>
+
+                    <span>
+                        Technical Branch
+                    </span>
+
+                    <small>
+                        Document Processing
+                    </small>
+
+                </div>
+
+
+                <div class="branch-card">
+
+                    <strong>
+                        Lekha Sakha
+                    </strong>
+
+                    <span>
+                        Accounts Branch
+                    </span>
+
+                    <small>
+                        Financial Processing
+                    </small>
+
+                </div>
+
+
+                <div class="branch-card">
+
+                    <strong>
+                        Rajaswa Sakha
+                    </strong>
+
+                    <span>
+                        Revenue Branch
+                    </span>
+
+                    <small>
+                        Revenue Processing
+                    </small>
+
+                </div>
+
+
+                <div class="branch-card">
+
+                    <strong>
+                        Budget Sakha
+                    </strong>
+
+                    <span>
+                        Budget Branch
+                    </span>
+
+                    <small>
+                        Budget Processing
+                    </small>
+
+                </div>
+
+
+                <div class="branch-card">
+
+                    <strong>
+                        IT Sakha
+                    </strong>
+
+                    <span>
+                        IT / System Branch
+                    </span>
+
+                    <small>
+                        System Support
+                    </small>
+
+                </div>
+
+
+                <div class="branch-card">
+
+                    <strong>
+                        Karyalaya Pramukh
+                    </strong>
+
+                    <span>
+                        Office Head
+                    </span>
+
+                    <small>
+                        Approval & Routing
+                    </small>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <script src="{% static 'js/app.js' %}"></script>
+
+</body>
+
+</html>

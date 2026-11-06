@@ -1,0 +1,642 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DartaLink | Chalani Entry</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body class="workflow-page">
+
+<div class="workflow-shell">
+
+    <!-- Sidebar -->
+    <aside class="workflow-sidebar">
+
+        <div class="brand-block">
+            <div class="brand-mark">DL</div>
+            <div>
+                <h2>DartaLink</h2>
+                <span>Office Workflow</span>
+            </div>
+        </div>
+
+        <nav class="workflow-nav">
+
+            <a href="/portal/" class="nav-item">
+                <span class="nav-icon">⌂</span>
+                Dashboard
+            </a>
+
+            <a href="/darta-entry/" class="nav-item">
+                <span class="nav-icon">↘</span>
+                Darta
+            </a>
+
+            <a href="/chalani-entry/" class="nav-item active">
+                <span class="nav-icon">↗</span>
+                Chalani
+            </a>
+
+            <a href="/approval-dashboard/" class="nav-item">
+                <span class="nav-icon">✓</span>
+                Approval Queue
+            </a>
+
+            <div class="nav-section-title">
+                Branches
+            </div>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">T</span>
+                Prabidhik Sakha
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">L</span>
+                Lekha Sakha
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">R</span>
+                Rajaswa Sakha
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">B</span>
+                Budget Sakha
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">I</span>
+                IT Sakha
+            </a>
+
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="security-indicator">
+                <span></span>
+                Secure Office Session
+            </div>
+        </div>
+
+    </aside>
+
+
+    <!-- Main -->
+    <main class="workflow-main">
+
+        <!-- Header -->
+        <header class="workflow-header">
+
+            <div>
+                <div class="breadcrumb">
+                    DartaLink / Chalani / New Dispatch
+                </div>
+
+                <h1>Outward Dispatch</h1>
+                <p>
+                    Register and dispatch an outgoing official document.
+                </p>
+            </div>
+
+            <div class="header-user">
+
+                <div class="header-user-info">
+                    <strong>Office Staff</strong>
+                    <span>Darta / Chalani Branch</span>
+                </div>
+
+                <div class="header-avatar">
+                    OS
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- Content -->
+        <section class="workflow-content">
+
+            <!-- Progress -->
+            <div class="workflow-progress">
+
+                <div class="progress-step active">
+                    <div class="progress-number">1</div>
+                    <div>
+                        <strong>Document Details</strong>
+                        <span>Enter dispatch information</span>
+                    </div>
+                </div>
+
+                <div class="progress-line"></div>
+
+                <div class="progress-step">
+                    <div class="progress-number">2</div>
+                    <div>
+                        <strong>Attachment</strong>
+                        <span>Attach outgoing document</span>
+                    </div>
+                </div>
+
+                <div class="progress-line"></div>
+
+                <div class="progress-step">
+                    <div class="progress-number">3</div>
+                    <div>
+                        <strong>Dispatch</strong>
+                        <span>Register outgoing document</span>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="chalani-layout">
+
+                <!-- Form -->
+                <section class="form-card">
+
+                    <div class="form-card-header">
+                        <div>
+                            <span class="section-kicker">CHALANI REGISTRATION</span>
+                            <h2>Outgoing Document Details</h2>
+                            <p>
+                                Enter the information required before sending the document.
+                            </p>
+                        </div>
+
+                        <div class="auto-number">
+                            <span>Chalani No.</span>
+                            <strong id="chalaniNumber">CH-2083-0001</strong>
+                            <small>Auto-generated</small>
+                        </div>
+                    </div>
+
+
+                    <form id="chalaniForm">
+
+                        <!-- Dispatch Information -->
+                        <div class="form-section">
+
+                            <div class="form-section-title">
+                                <span>01</span>
+                                Dispatch Information
+                            </div>
+
+                            <div class="form-grid">
+
+                                <div class="form-field">
+                                    <label for="dispatchDate">
+                                        Dispatch Date
+                                        <span>*</span>
+                                    </label>
+
+                                    <input
+                                        type="date"
+                                        id="dispatchDate"
+                                        name="dispatchDate"
+                                        required
+                                    >
+                                </div>
+
+
+                                <div class="form-field">
+                                    <label for="documentType">
+                                        Document Type
+                                        <span>*</span>
+                                    </label>
+
+                                    <select id="documentType" name="documentType" required>
+                                        <option value="">Select document type</option>
+                                        <option>Official Letter</option>
+                                        <option>Notice</option>
+                                        <option>Memo</option>
+                                        <option>Recommendation Letter</option>
+                                        <option>Approval Letter</option>
+                                        <option>Reply Letter</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+
+
+                                <div class="form-field full-width">
+                                    <label for="recipient">
+                                        Recipient / Organization
+                                        <span>*</span>
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="recipient"
+                                        name="recipient"
+                                        placeholder="e.g. Nepal Telecommunications Authority"
+                                        required
+                                    >
+                                </div>
+
+
+                                <div class="form-field full-width">
+                                    <label for="recipientAddress">
+                                        Recipient Address
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="recipientAddress"
+                                        name="recipientAddress"
+                                        placeholder="Enter recipient office or address"
+                                    >
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Document Information -->
+                        <div class="form-section">
+
+                            <div class="form-section-title">
+                                <span>02</span>
+                                Document Information
+                            </div>
+
+                            <div class="form-grid">
+
+                                <div class="form-field full-width">
+                                    <label for="subject">
+                                        Subject
+                                        <span>*</span>
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="subject"
+                                        name="subject"
+                                        placeholder="Enter the subject of the outgoing document"
+                                        required
+                                    >
+                                </div>
+
+
+                                <div class="form-field">
+                                    <label for="referenceNumber">
+                                        Reference Number
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="referenceNumber"
+                                        name="referenceNumber"
+                                        placeholder="e.g. NTC/ADM/2083/145"
+                                    >
+                                </div>
+
+
+                                <div class="form-field">
+                                    <label for="documentDate">
+                                        Document Date
+                                    </label>
+
+                                    <input
+                                        type="date"
+                                        id="documentDate"
+                                        name="documentDate"
+                                    >
+                                </div>
+
+
+                                <div class="form-field">
+                                    <label for="dispatchBranch">
+                                        Sending Branch
+                                        <span>*</span>
+                                    </label>
+
+                                    <select
+                                        id="dispatchBranch"
+                                        name="dispatchBranch"
+                                        required
+                                    >
+                                        <option value="">Select branch</option>
+                                        <option>Darta / Chalani Branch</option>
+                                        <option>Karyalaya Pramukh</option>
+                                        <option>Prabidhik Sakha</option>
+                                        <option>Lekha Sakha</option>
+                                        <option>Rajaswa Sakha</option>
+                                        <option>Budget Sakha</option>
+                                        <option>IT Sakha</option>
+                                    </select>
+                                </div>
+
+
+                                <div class="form-field">
+                                    <label for="priority">
+                                        Priority
+                                        <span>*</span>
+                                    </label>
+
+                                    <select id="priority" name="priority" required>
+                                        <option value="">Select priority</option>
+                                        <option>Normal</option>
+                                        <option>Urgent</option>
+                                        <option>Very Urgent</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Attachment -->
+                        <div class="form-section">
+
+                            <div class="form-section-title">
+                                <span>03</span>
+                                Document Attachment
+                            </div>
+
+                            <div
+                                class="attachment-zone"
+                                id="attachmentZone"
+                            >
+
+                                <input
+                                    type="file"
+                                    id="documentAttachment"
+                                    name="documentAttachment"
+                                    accept=".pdf,.jpg,.jpeg,.png"
+                                    hidden
+                                >
+
+                                <div class="attachment-icon">
+                                    ↑
+                                </div>
+
+                                <h3>Attach outgoing document</h3>
+
+                                <p>
+                                    Upload PDF or image of the signed outgoing document.
+                                </p>
+
+                                <button
+                                    type="button"
+                                    class="secondary-button"
+                                    id="chooseAttachment"
+                                >
+                                    Choose File
+                                </button>
+
+                                <span class="attachment-hint">
+                                    PDF, JPG or PNG · Maximum 10 MB
+                                </span>
+
+                            </div>
+
+
+                            <div
+                                class="attachment-preview"
+                                id="attachmentPreview"
+                                hidden
+                            >
+
+                                <div class="attachment-file-icon">
+                                    DOC
+                                </div>
+
+                                <div class="attachment-file-info">
+                                    <strong id="attachmentName">
+                                        document.pdf
+                                    </strong>
+
+                                    <span id="attachmentSize">
+                                        0 KB
+                                    </span>
+                                </div>
+
+                                <button
+                                    type="button"
+                                    class="remove-attachment"
+                                    id="removeAttachment"
+                                >
+                                    Remove
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Remarks -->
+                        <div class="form-section">
+
+                            <div class="form-section-title">
+                                <span>04</span>
+                                Remarks
+                            </div>
+
+                            <div class="form-field">
+
+                                <label for="remarks">
+                                    Dispatch Remarks
+                                </label>
+
+                                <textarea
+                                    id="remarks"
+                                    name="remarks"
+                                    rows="4"
+                                    placeholder="Add any additional dispatch instructions or remarks..."
+                                ></textarea>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Actions -->
+                        <div class="form-actions">
+
+                            <button
+                                type="button"
+                                class="text-button"
+                                id="cancelChalani"
+                            >
+                                Cancel
+                            </button>
+
+                            <button
+                                type="button"
+                                class="secondary-button"
+                                id="saveChalaniDraft"
+                            >
+                                Save Draft
+                            </button>
+
+                            <button
+                                type="submit"
+                                class="primary-button"
+                            >
+                                Register & Dispatch →
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </section>
+
+
+                <!-- Preview / Information -->
+                <aside class="chalani-sidebar">
+
+                    <div class="preview-card">
+
+                        <div class="preview-card-header">
+                            <span>DISPATCH PREVIEW</span>
+                            <div class="status-pill">Draft</div>
+                        </div>
+
+                        <div class="preview-document">
+
+                            <div class="preview-top">
+                                <div class="preview-logo">
+                                    DL
+                                </div>
+
+                                <div>
+                                    <strong>DartaLink</strong>
+                                    <span>Office Document System</span>
+                                </div>
+                            </div>
+
+                            <div class="preview-title">
+                                CHALANI
+                            </div>
+
+                            <div class="preview-row">
+                                <span>Chalani No.</span>
+                                <strong id="previewChalaniNumber">
+                                    CH-2083-0001
+                                </strong>
+                            </div>
+
+                            <div class="preview-row">
+                                <span>Date</span>
+                                <strong id="previewDate">
+                                    —
+                                </strong>
+                            </div>
+
+                            <div class="preview-row">
+                                <span>To</span>
+                                <strong id="previewRecipient">
+                                    —
+                                </strong>
+                            </div>
+
+                            <div class="preview-divider"></div>
+
+                            <div class="preview-subject-label">
+                                Subject
+                            </div>
+
+                            <div
+                                class="preview-subject"
+                                id="previewSubject"
+                            >
+                                —
+                            </div>
+
+                            <div class="preview-row">
+                                <span>Priority</span>
+                                <strong id="previewPriority">
+                                    —
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-card">
+
+                        <div class="info-icon">
+                            i
+                        </div>
+
+                        <div>
+                            <strong>Auto-numbering</strong>
+
+                            <p>
+                                The Chalani number is generated automatically by
+                                DartaLink to maintain a unique dispatch record.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="workflow-card">
+
+                        <h3>Dispatch Workflow</h3>
+
+                        <div class="workflow-mini-step">
+                            <span class="mini-number">1</span>
+                            <div>
+                                <strong>Enter Details</strong>
+                                <small>Complete dispatch information</small>
+                            </div>
+                        </div>
+
+                        <div class="workflow-mini-line"></div>
+
+                        <div class="workflow-mini-step">
+                            <span class="mini-number">2</span>
+                            <div>
+                                <strong>Attach Document</strong>
+                                <small>Add signed document</small>
+                            </div>
+                        </div>
+
+                        <div class="workflow-mini-line"></div>
+
+                        <div class="workflow-mini-step">
+                            <span class="mini-number">3</span>
+                            <div>
+                                <strong>Register</strong>
+                                <small>Create official Chalani record</small>
+                            </div>
+                        </div>
+
+                        <div class="workflow-mini-line"></div>
+
+                        <div class="workflow-mini-step">
+                            <span class="mini-number">4</span>
+                            <div>
+                                <strong>Dispatch</strong>
+                                <small>Send through official channel</small>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </aside>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="{% static 'js/app.js' %}"></script>
+
+</body>
+</html>

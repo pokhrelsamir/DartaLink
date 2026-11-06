@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DartaLink | Approval Dashboard</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <div class="brand-mark">
+            DL
+        </div>
+
+        <div>
+            <h1>DartaLink</h1>
+            <span>Document Registration & Routing</span>
+        </div>
+
+    </div>
+
+
+    <div class="topbar-user">
+
+        <span>Karyalaya Pramukh</span>
+
+        <div class="user-avatar">
+            KP
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="page-container">
+
+    <!-- Page Heading -->
+
+    <div class="page-heading">
+
+        <div>
+
+            <p class="eyebrow">
+                EXECUTIVE WORKSPACE
+            </p>
+
+            <h2>
+                Approval Dashboard
+            </h2>
+
+            <p class="page-description">
+                Review incoming documents, provide instructions,
+                and route approved documents to the appropriate branch.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Summary Cards -->
+
+    <section class="approval-summary">
+
+        <div class="summary-card">
+
+            <span class="summary-label">
+                Pending Review
+            </span>
+
+            <strong>
+                08
+            </strong>
+
+            <small>
+                Documents awaiting action
+            </small>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <span class="summary-label">
+                Approved Today
+            </span>
+
+            <strong>
+                12
+            </strong>
+
+            <small>
+                Documents routed successfully
+            </small>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <span class="summary-label">
+                Awaiting Signature
+            </span>
+
+            <strong>
+                04
+            </strong>
+
+            <small>
+                Documents requiring authorization
+            </small>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <span class="summary-label">
+                Completed
+            </span>
+
+            <strong>
+                27
+            </strong>
+
+            <small>
+                Documents processed today
+            </small>
+
+        </div>
+
+    </section>
+
+
+    <!-- Main Workspace -->
+
+    <section class="approval-layout">
+
+
+        <!-- Review Queue -->
+
+        <div class="card approval-queue">
+
+            <div class="card-header">
+
+                <div>
+
+                    <p class="section-label">
+                        DOCUMENT QUEUE
+                    </p>
+
+                    <h3>
+                        Pending Approval
+                    </h3>
+
+                </div>
+
+                <span class="status-badge">
+                    8 Pending
+                </span>
+
+            </div>
+
+
+            <div class="queue-filters">
+
+                <input
+                    type="search"
+                    id="approvalSearch"
+                    placeholder="Search document..."
+                >
+
+                <select id="approvalFilter">
+
+                    <option value="all">
+                        All Documents
+                    </option>
+
+                    <option value="urgent">
+                        Urgent
+                    </option>
+
+                    <option value="normal">
+                        Normal
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="document-list">
+
+
+                <div
+                    class="document-item selected"
+                    data-priority="urgent"
+                    data-document="DRT-2026-00125"
+                >
+
+                    <div class="document-number">
+                        DRT-00125
+                    </div>
+
+                    <div class="document-info">
+
+                        <strong>
+                            Nepal Telecom Regional Office
+                        </strong>
+
+                        <span>
+                            Request for technical infrastructure approval
+                        </span>
+
+                    </div>
+
+                    <span class="priority urgent">
+                        Urgent
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="document-item"
+                    data-priority="normal"
+                    data-document="DRT-2026-00124"
+                >
+
+                    <div class="document-number">
+                        DRT-00124
+                    </div>
+
+                    <div class="document-info">
+
+                        <strong>
+                            Finance Division
+                        </strong>
+
+                        <span>
+                            Budget authorization request
+                        </span>
+
+                    </div>
+
+                    <span class="priority normal">
+                        Normal
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="document-item"
+                    data-priority="normal"
+                    data-document="DRT-2026-00123"
+                >
+
+                    <div class="document-number">
+                        DRT-00123
+                    </div>
+
+                    <div class="document-info">
+
+                        <strong>
+                            External Organization
+                        </strong>
+
+                        <span>
+                            Official correspondence for review
+                        </span>
+
+                    </div>
+
+                    <span class="priority normal">
+                        Normal
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="document-item"
+                    data-priority="urgent"
+                    data-document="DRT-2026-00122"
+                >
+
+                    <div class="document-number">
+                        DRT-00122
+                    </div>
+
+                    <div class="document-info">
+
+                        <strong>
+                            Technical Branch
+                        </strong>
+
+                        <span>
+                            Network maintenance approval request
+                        </span>
+
+                    </div>
+
+                    <span class="priority urgent">
+                        Urgent
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Document Review -->
+
+        <div class="card document-review">
+
+            <div class="card-header">
+
+                <div>
+
+                    <p class="section-label">
+                        DOCUMENT REVIEW
+                    </p>
+
+                    <h3>
+                        DRT-2026-00125
+                    </h3>
+
+                </div>
+
+                <span class="draft-badge">
+                    Awaiting Action
+                </span>
+
+            </div>
+
+
+            <div class="document-meta">
+
+                <div>
+                    <span>Sender</span>
+                    <strong>
+                        Nepal Telecom Regional Office
+                    </strong>
+                </div>
+
+                <div>
+                    <span>Received</span>
+                    <strong>
+                        25 Aug 2026
+                    </strong>
+                </div>
+
+                <div>
+                    <span>Reference</span>
+                    <strong>
+                        NTC/REG/2026/125
+                    </strong>
+                </div>
+
+                <div>
+                    <span>Priority</span>
+                    <strong class="urgent-text">
+                        Urgent
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <!-- Document Preview -->
+
+            <div class="document-preview">
+
+                <div class="document-paper">
+
+                    <div class="paper-header">
+                        NEPAL TELECOM
+                    </div>
+
+                    <div class="paper-line large"></div>
+                    <div class="paper-line medium"></div>
+
+                    <div class="paper-space"></div>
+
+                    <div class="paper-line"></div>
+                    <div class="paper-line"></div>
+                    <div class="paper-line"></div>
+
+                    <div class="paper-space"></div>
+
+                    <div class="paper-line medium"></div>
+                    <div class="paper-line"></div>
+
+                    <div class="paper-signature">
+                        Official Letter
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Tippani / Instruction -->
+
+            <div class="instruction-section">
+
+                <label for="approvalInstruction">
+                    Executive Instruction / Tippani
+                </label>
+
+                <textarea
+                    id="approvalInstruction"
+                    rows="4"
+                    placeholder="Enter instruction for the receiving branch..."
+                ></textarea>
+
+            </div>
+
+
+            <!-- Branch Routing -->
+
+            <div class="routing-section">
+
+                <div>
+
+                    <label for="targetBranch">
+                        Route To Branch
+                    </label>
+
+                    <select id="targetBranch">
+
+                        <option value="">
+                            Select branch
+                        </option>
+
+                        <option value="technical">
+                            Prabidhik Sakha
+                        </option>
+
+                        <option value="accounts">
+                            Lekha Sakha
+                        </option>
+
+                        <option value="revenue">
+                            Rajaswa Sakha
+                        </option>
+
+                        <option value="budget">
+                            Budget Sakha
+                        </option>
+
+                        <option value="it">
+                            IT Sakha
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- Signature Workspace -->
+
+            <div class="signature-workspace">
+
+                <div class="signature-heading">
+
+                    <div>
+
+                        <p class="section-label">
+                            AUTHORIZATION
+                        </p>
+
+                        <h4>
+                            Digital Signature Workspace
+                        </h4>
+
+                    </div>
+
+                    <span class="signature-status">
+                        Signature Pending
+                    </span>
+
+                </div>
+
+
+                <div class="signature-box">
+
+                    <div class="signature-icon">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Executive authorization required
+                        </strong>
+
+                        <p>
+                            The document will be digitally authorized
+                            before being routed to the selected branch.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="signature-actions">
+
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        id="rejectButton"
+                    >
+                        Return for Correction
+                    </button>
+
+                    <button
+                        type="button"
+                        class="primary-button"
+                        id="approveButton"
+                    >
+                        Approve & Route
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Branch Route Timeline -->
+
+    <section class="card routing-history">
+
+        <div class="card-header">
+
+            <div>
+
+                <p class="section-label">
+                    ROUTING HISTORY
+                </p>
+
+                <h3>
+                    Document Movement
+                </h3>
+
+            </div>
+
+        </div>
+
+
+        <div class="route-timeline">
+
+            <div class="route-step completed">
+
+                <div class="route-marker">
+                    ✓
+                </div>
+
+                <div>
+                    <strong>
+                        Darta / Chalani
+                    </strong>
+
+                    <span>
+                        Document registered
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="route-connector"></div>
+
+
+            <div class="route-step active">
+
+                <div class="route-marker">
+                    2
+                </div>
+
+                <div>
+                    <strong>
+                        Karyalaya Pramukh
+                    </strong>
+
+                    <span>
+                        Awaiting approval
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="route-connector"></div>
+
+
+            <div class="route-step">
+
+                <div class="route-marker">
+                    3
+                </div>
+
+                <div>
+                    <strong>
+                        Receiving Branch
+                    </strong>
+
+                    <span>
+                        Pending routing
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<script src="{% static 'js/app.js' %}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>DartaLink | Employee Login</title>
+
+    {% load static %}
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/style.css' %}"
+    >
+
+</head>
+
+
+<body class="login-page">
+
+    <main class="login-container">
+
+        <section class="login-brand">
+
+            <div class="login-brand-mark">
+                DL
+            </div>
+
+            <h1>
+                DartaLink
+            </h1>
+
+            <p>
+                Enterprise Document Registration
+                & Routing System
+            </p>
+
+        </section>
+
+
+        <section class="login-card">
+
+            <div class="login-header">
+
+                <p class="section-label">
+                    EMPLOYEE ACCESS
+                </p>
+
+                <h2>
+                    Sign in to DartaLink
+                </h2>
+
+                <p>
+                    Use your authorized employee credentials
+                    to access the document workflow system.
+                </p>
+
+            </div>
+
+
+            <form
+                id="loginForm"
+                method="post"
+            >
+
+                {% csrf_token %}
+
+
+                <div class="login-field">
+
+                    <label for="username">
+                        Employee ID / Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Enter employee ID"
+                        autocomplete="username"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="login-field">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="login-options">
+
+                    <label class="remember-option">
+
+                        <input
+                            type="checkbox"
+                            name="remember"
+                        >
+
+                        <span>
+                            Remember this device
+                        </span>
+
+                    </label>
+
+                    <a href="#">
+                        Forgot password?
+                    </a>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="login-button"
+                >
+                    Sign In
+                </button>
+
+
+                <div
+                    id="loginMessage"
+                    class="login-message"
+                ></div>
+
+            </form>
+
+
+            <div class="login-security">
+
+                <span class="security-icon">
+                    🔒
+                </span>
+
+                <span>
+                    Authorized employee access only
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <footer class="login-footer">
+
+            DartaLink • Digital Document Workflow
+
+        </footer>
+
+    </main>
+
+
+    <script src="{% static 'js/app.js' %}"></script>
+
+</body>
+
+</html>
