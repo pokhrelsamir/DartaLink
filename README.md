@@ -1,7 +1,7 @@
 # DartaLink - Digital Administrative Workflow and Darta/Chalani Management System
 
 **Digital Administrative Request and Document Workflow Management System** for a Nepal Telecom-style
-organisation. It digitises the paper trail of an office: request → section verification → **Darta**
+organization. It digitises the paper trail of an office in a enterprise organization: request → section verification → **Darta**
 (inward registration) → forwarding → review (recommendation, **Tippani**, **Tok Aadesh**) →
 approval / rejection → **Chalani** (outward dispatch) → completion, with a full audit trail.
 
